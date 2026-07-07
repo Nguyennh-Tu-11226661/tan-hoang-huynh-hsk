@@ -11,7 +11,7 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="{% block og_title %}Tân Hoàng Huynh HSK Bắc Ninh{% endblock %}">
     <link rel="canonical" href="{{ request.build_absolute_uri }}">
-    <link rel="icon" href="{% static 'img/favicon.svg' %}" type="image/svg+xml">
+    <link rel="icon" href="{% static 'img/official-logo-mark.png' %}" type="image/png">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/site.css' %}">
@@ -26,7 +26,7 @@
     <nav class="navbar navbar-expand-xl bg-white sticky-top shadow-sm" aria-label="Điều hướng chính">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'core:home' %}">
-                <span class="brand-mark">谭</span>
+                <img class="brand-logo" src="{% static 'img/official-logo-mark.png' %}" alt="Logo Tân Hoàng Huynh" width="56" height="56">
                 <span><strong>TÂN HOÀNG HUYNH</strong><small>HSK · BẮC NINH</small></span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Mở menu">
@@ -54,7 +54,7 @@
             <div class="row g-4">
                 <div class="col-lg-5">
                     <div class="d-flex align-items-center gap-2 mb-3">
-                        <span class="brand-mark brand-mark-light">谭</span>
+                        <img class="footer-logo" src="{% static 'img/official-logo-mark.png' %}" alt="Logo Tân Hoàng Huynh" width="64" height="64">
                         <strong class="fs-5">TRUNG TÂM TIẾNG TRUNG<br>TÂN HOÀNG HUYNH HSK</strong>
                     </div>
                     <p>Đồng hành cùng người học Bắc Ninh từ buổi phát âm đầu tiên đến mục tiêu HSK và giao tiếp công việc.</p>

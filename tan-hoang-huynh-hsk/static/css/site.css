@@ -63,6 +63,24 @@ h3 { font-size: 1.3rem; }
     transform: rotate(-3deg);
 }
 .brand-mark-light { border-color: var(--gold); color: var(--gold); }
+.brand-logo, .footer-logo {
+    display: block;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: #fff;
+    object-fit: contain;
+}
+.brand-logo {
+    width: 56px;
+    height: 56px;
+    border: 1px solid var(--line);
+    padding: 3px;
+}
+.footer-logo {
+    width: 64px;
+    height: 64px;
+    padding: 4px;
+}
 .navbar .nav-link { color: #20354b; font-size: .91rem; font-weight: 650; padding: .7rem .72rem !important; }
 .navbar .nav-link:hover, .navbar .nav-link:focus { color: var(--red); }
 .btn { border-radius: 4px; padding: .72rem 1.15rem; font-weight: 750; letter-spacing: .01em; }
@@ -431,6 +449,7 @@ textarea.form-control { min-height: 96px; }
     .topbar .container { justify-content: center !important; }
     .navbar { min-height: 70px; }
     .brand-mark { width: 41px; height: 41px; font-size: 1.3rem; }
+    .brand-logo { width: 46px; height: 46px; }
     .navbar-brand strong { font-size: .85rem; }
     .home-hero { padding: 60px 0; }
     .hero-trust { gap: 16px; }
