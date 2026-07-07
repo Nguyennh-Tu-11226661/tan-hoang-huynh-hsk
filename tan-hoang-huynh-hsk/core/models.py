@@ -45,6 +45,9 @@ class ContactInfo(models.Model):
     center_name = models.CharField("Tên trung tâm", max_length=180)
     address = models.CharField("Địa chỉ", max_length=255)
     hotline = models.CharField("Hotline", max_length=20, validators=[phone_validator])
+    secondary_hotline = models.CharField(
+        "Hotline phụ", max_length=20, blank=True, default="", validators=[phone_validator]
+    )
     email = models.EmailField("Email")
     zalo_url = models.URLField("Zalo", blank=True)
     facebook_url = models.URLField("Facebook", blank=True)
@@ -60,3 +63,40 @@ class ContactInfo(models.Model):
 
     def __str__(self):
         return self.center_name
+
+    @staticmethod
+    def _clean_phone(value):
+        return "".join(char for char in value if char.isdigit() or char == "+")
+
+    @staticmethod
+    def _format_phone(value):
+        cleaned = ContactInfo._clean_phone(value)
+        if cleaned.startswith("+84") and len(cleaned) == 12:
+            cleaned = "0" + cleaned[3:]
+        if len(cleaned) == 10 and cleaned.startswith("0"):
+            return f"{cleaned[:4]}.{cleaned[4:7]}.{cleaned[7:]}"
+        return value
+
+    @property
+    def hotline_tel(self):
+        return self._clean_phone(self.hotline)
+
+    @property
+    def secondary_hotline_tel(self):
+        return self._clean_phone(self.secondary_hotline)
+
+    @property
+    def hotline_display(self):
+        return self._format_phone(self.hotline)
+
+    @property
+    def secondary_hotline_display(self):
+        return self._format_phone(self.secondary_hotline)
+
+    @property
+    def phone_display(self):
+        return " - ".join(
+            phone
+            for phone in [self.hotline_display, self.secondary_hotline_display]
+            if phone
+        )

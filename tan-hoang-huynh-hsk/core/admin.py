@@ -19,4 +19,4 @@ class FAQAdmin(admin.ModelAdmin):
 
 @admin.register(ContactInfo)
 class ContactInfoAdmin(admin.ModelAdmin):
-    list_display = ("center_name", "hotline", "email", "is_active")
+    list_display = ("center_name", "phone_display", "email", "is_active")

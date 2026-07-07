@@ -36,12 +36,15 @@ class Command(BaseCommand):
             defaults={
                 "address": os.getenv(
                     "CENTER_ADDRESS",
-                    "Số 86 đường Nguyễn Gia Thiều, phường Suối Hoa, TP. Bắc Ninh",
+                    "198 Lý Anh Tông, phường Võ Cường, TP. Bắc Ninh",
                 ),
-                "hotline": os.getenv("CENTER_HOTLINE", "0988668596"),
+                "hotline": os.getenv("CENTER_HOTLINE", "0829304304"),
+                "secondary_hotline": os.getenv(
+                    "CENTER_SECONDARY_HOTLINE", "0886056556"
+                ),
                 "email": os.getenv("CENTER_EMAIL", "tuvan@tanhoanghuynhhsk.vn"),
                 "zalo_url": os.getenv(
-                    "CENTER_ZALO_URL", "https://zalo.me/0988668596"
+                    "CENTER_ZALO_URL", "https://zalo.me/0829304304"
                 ),
                 "facebook_url": os.getenv(
                     "CENTER_FACEBOOK_URL",
@@ -54,7 +57,7 @@ class Command(BaseCommand):
                 ),
                 "map_embed_url": os.getenv(
                     "CENTER_MAP_EMBED_URL",
-                    "https://www.google.com/maps?q=So+86+Nguyen+Gia+Thieu,+Suoi+Hoa,+Bac+Ninh&output=embed",
+                    "https://www.google.com/maps?q=198+Ly+Anh+Tong,+Vo+Cuong,+Bac+Ninh&output=embed",
                 ),
                 "working_hours": "Thứ 2–Chủ nhật: 08:00–21:00",
                 "is_active": True,

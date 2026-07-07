@@ -4,7 +4,7 @@
 {% block content %}
 {% include "includes/page_header.html" with breadcrumb="Liên hệ" eyebrow="KẾT NỐI VỚI TRUNG TÂM" heading="Ghé thăm Tân Hoàng Huynh HSK" intro="Đến trung tâm để test trình độ, xem lớp học và trao đổi lộ trình trực tiếp." %}
 <section class="section-space"><div class="container">{% if site_contact %}<div class="row g-4 mb-5">
-<div class="col-md-6 col-xl-3"><div class="contact-card"><span>☎</span><small>HOTLINE</small><a href="tel:{{ site_contact.hotline }}">{{ site_contact.hotline }}</a><p>Gọi nhanh để kiểm tra lịch lớp</p></div></div>
+<div class="col-md-6 col-xl-3"><div class="contact-card"><span>☎</span><small>HOTLINE</small><a href="tel:{{ site_contact.hotline_tel }}">{{ site_contact.hotline_display }}</a>{% if site_contact.secondary_hotline %}<a href="tel:{{ site_contact.secondary_hotline_tel }}">{{ site_contact.secondary_hotline_display }}</a>{% endif %}<p>Gọi nhanh để kiểm tra lịch lớp</p></div></div>
 <div class="col-md-6 col-xl-3"><div class="contact-card"><span>⌖</span><small>ĐỊA CHỈ</small><strong>{{ site_contact.address }}</strong><p>Hẹn trước để được đón tiếp tốt nhất</p></div></div>
 <div class="col-md-6 col-xl-3"><div class="contact-card"><span>✉</span><small>EMAIL</small><a href="mailto:{{ site_contact.email }}">{{ site_contact.email }}</a><p>Phản hồi trong một ngày làm việc</p></div></div>
 <div class="col-md-6 col-xl-3"><div class="contact-card"><span>时</span><small>GIỜ LÀM VIỆC</small><strong>{{ site_contact.working_hours }}</strong><p>Có lớp tối và cuối tuần</p></div></div>

@@ -20,7 +20,7 @@
 <body>
     <div class="topbar">
         <div class="container d-flex justify-content-between align-items-center gap-3">
-            {% if site_contact %}<a href="tel:{{ site_contact.hotline }}">Hotline: {{ site_contact.hotline }}</a>{% endif %}
+            {% if site_contact %}<a href="tel:{{ site_contact.hotline_tel }}">Hotline: {{ site_contact.phone_display }}</a>{% endif %}
         </div>
     </div>
     <nav class="navbar navbar-expand-xl bg-white sticky-top shadow-sm" aria-label="Điều hướng chính">
@@ -79,7 +79,7 @@
                     <h2 class="footer-title">Liên hệ</h2>
                     {% if site_contact %}
                     <p class="mb-2">{{ site_contact.address }}</p>
-                    <p class="mb-2"><a href="tel:{{ site_contact.hotline }}">{{ site_contact.hotline }}</a></p>
+                    <p class="mb-2"><a href="tel:{{ site_contact.hotline_tel }}">{{ site_contact.hotline_display }}</a>{% if site_contact.secondary_hotline %}<br><a href="tel:{{ site_contact.secondary_hotline_tel }}">{{ site_contact.secondary_hotline_display }}</a>{% endif %}</p>
                     <p class="mb-2"><a href="mailto:{{ site_contact.email }}">{{ site_contact.email }}</a></p>
                     <p>{{ site_contact.working_hours }}</p>
                     {% else %}
@@ -93,7 +93,7 @@
 
     <div class="quick-actions" aria-label="Liên hệ nhanh">
         {% if site_contact %}
-        <a class="quick-call" href="tel:{{ site_contact.hotline }}" aria-label="Gọi hotline"><span>☎</span><b>Gọi ngay</b></a>
+        <a class="quick-call" href="tel:{{ site_contact.hotline_tel }}" aria-label="Gọi hotline"><span>☎</span><b>Gọi ngay</b></a>
         {% if site_contact.zalo_url %}<a class="quick-zalo" href="{{ site_contact.zalo_url }}" target="_blank" rel="noopener" aria-label="Liên hệ Zalo"><span>Z</span><b>Zalo</b></a>{% endif %}
         {% endif %}
     </div>

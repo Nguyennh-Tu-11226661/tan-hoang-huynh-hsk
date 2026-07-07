@@ -65,7 +65,7 @@ python manage.py runserver
 Không commit `.env`, mật khẩu database hoặc secret key lên Git.
 
 `seed_data` cũng đọc các biến `CENTER_ADDRESS`, `CENTER_HOTLINE`,
-`CENTER_EMAIL`, `CENTER_ZALO_URL`, `CENTER_FACEBOOK_URL`,
+`CENTER_SECONDARY_HOTLINE`, `CENTER_EMAIL`, `CENTER_ZALO_URL`, `CENTER_FACEBOOK_URL`,
 `CENTER_MESSENGER_URL`, `CENTER_TIKTOK_URL` và `CENTER_MAP_EMBED_URL`. Facebook/Messenger/TikTok sẽ
 không được hiển thị nếu chưa có URL thật, tránh đưa người dùng tới liên kết
 chung hoặc liên kết không thuộc trung tâm.
