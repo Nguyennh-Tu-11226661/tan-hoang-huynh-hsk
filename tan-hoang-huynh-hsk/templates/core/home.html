@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+{% block title %}Trung tâm Tiếng Trung Tân Hoàng Huynh HSK Bắc Ninh{% endblock %}
+{% block meta_description %}Trung tâm tiếng Trung Bắc Ninh: lớp HSK sĩ số nhỏ, luyện thi theo lộ trình, học thử và test đầu vào miễn phí tại Tân Hoàng Huynh HSK.{% endblock %}
+{% block content %}
+<section class="home-hero">
+    <div class="hero-pattern" aria-hidden="true">汉 学 中 语</div>
+    <div class="container position-relative">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7">
+                <p class="hero-kicker">TRUNG TÂM TIẾNG TRUNG TẠI BẮC NINH</p>
+                <h1>{% if banner %}{{ banner.title }}{% else %}Vững tiếng Trung,<br><span>rộng đường tương lai</span>{% endif %}</h1>
+                <p class="hero-copy">{% if banner %}{{ banner.subtitle }}{% else %}Học đúng lộ trình, chắc nền tảng và tự tin chinh phục HSK cùng đội ngũ giáo viên theo sát từng học viên.{% endif %}</p>
+                <div class="d-flex flex-wrap gap-3">
+                    {% if banner %}
+                    <a class="btn btn-light btn-lg" href="{{ banner.button_url }}">{{ banner.button_text }}</a>
+                    {% else %}
+                    <a class="btn btn-light btn-lg" href="{% url 'admissions:trial' %}">Đăng ký học thử</a>
+                    {% endif %}
+                    {% if site_contact.zalo_url %}<a class="btn btn-outline-light btn-lg" href="{{ site_contact.zalo_url }}" target="_blank" rel="noopener">Tư vấn qua Zalo</a>{% endif %}
+                </div>
+                <div class="hero-trust">
+                    <span><b>8–12</b> học viên/lớp</span>
+                    <span><b>5 bước</b> lộ trình rõ ràng</span>
+                    <span><b>1:1</b> sửa phát âm</span>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="hero-card">
+                    {% if banner.image %}<img class="hero-card-media" src="{{ banner.image.url }}" alt="{{ banner.title }}">{% endif %}
+                    <div class="hero-card-top">
+                        <span>目标</span>
+                        <small>MỤC TIÊU</small>
+                    </div>
+                    <div class="mock-score">
+                        <span>HSK</span><strong>4</strong>
+                    </div>
+                    <p>Từ mất gốc đến giao tiếp và chứng chỉ — bắt đầu bằng một bài test đúng trình độ.</p>
+                    <a href="{% url 'admissions:trial' %}">Test đầu vào miễn phí →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="trust-strip">
+    <div class="container">
+        <div class="row g-3 text-center">
+            <div class="col-6 col-lg-3"><strong>Phát âm chuẩn</strong><span>Sửa khẩu hình từng buổi</span></div>
+            <div class="col-6 col-lg-3"><strong>Lộ trình cá nhân</strong><span>Theo mục tiêu HSK</span></div>
+            <div class="col-6 col-lg-3"><strong>Học đi đôi với dùng</strong><span>Giao tiếp thực tế</span></div>
+            <div class="col-6 col-lg-3"><strong>Theo sát tiến độ</strong><span>Báo cáo định kỳ</span></div>
+        </div>
+    </div>
+</section>
+
+<section class="section-space">
+    <div class="container">
+        <div class="section-heading d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3">
+            <div><p class="eyebrow">LỘ TRÌNH DÀNH CHO BẠN</p><h2>Khóa học nổi bật</h2><p>Chọn đúng điểm bắt đầu, đi chắc từng cấp độ.</p></div>
+            <a class="text-link" href="{% url 'courses:list' %}">Xem tất cả khóa học →</a>
+        </div>
+        <div class="row g-4">
+            {% for course in featured_courses %}
+            <div class="col-md-6 col-xl-4">{% include "includes/course_card.html" %}</div>
+            {% empty %}
+            <p>Dữ liệu khóa học sẽ xuất hiện sau khi chạy lệnh tạo dữ liệu mẫu.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-space roadmap-section">
+    <div class="container">
+        <div class="section-heading text-center mx-auto">
+            <p class="eyebrow">KHÔNG HỌC LAN MAN</p>
+            <h2>5 bước chạm mục tiêu tiếng Trung</h2>
+            <p>Mỗi học viên có một điểm xuất phát khác nhau, nhưng đều cần một đường đi rõ ràng.</p>
+        </div>
+        <div class="roadmap">
+            <div class="road-step"><b>01</b><span>测</span><h3>Test đầu vào</h3><p>Kiểm tra nghe, đọc, phát âm và mục tiêu.</p></div>
+            <div class="road-step"><b>02</b><span>班</span><h3>Xếp lớp phù hợp</h3><p>Đúng trình độ, khung giờ và nhịp học.</p></div>
+            <div class="road-step"><b>03</b><span>学</span><h3>Học theo lộ trình</h3><p>Chắc từ vựng, ngữ pháp và giao tiếp.</p></div>
+            <div class="road-step"><b>04</b><span>练</span><h3>Luyện đề</h3><p>Chiến thuật làm bài và chữa lỗi cá nhân.</p></div>
+            <div class="road-step"><b>05</b><span>成</span><h3>Đạt mục tiêu</h3><p>Tự tin thi HSK, học tập và công việc.</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="section-space reasons-section">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-5">
+                <p class="eyebrow">TẠI SAO LÀ TÂN HOÀNG HUYNH?</p>
+                <h2>Học thật, tiến bộ thật, dùng được thật</h2>
+                <p class="lead">Chúng tôi không chạy theo số lượng lớp. Mỗi lớp được thiết kế đủ nhỏ để giáo viên biết bạn đang vướng ở đâu.</p>
+                <a class="btn btn-brand" href="{% url 'core:about' %}">Hiểu thêm về trung tâm</a>
+            </div>
+            <div class="col-lg-7">
+                <div class="reason-grid">
+                    <article><span>声</span><div><h3>Sửa phát âm tận gốc</h3><p>Thanh mẫu, vận mẫu, thanh điệu được chỉnh trực tiếp ngay từ đầu.</p></div></article>
+                    <article><span>师</span><div><h3>Giáo viên theo sát</h3><p>Bài tập có phản hồi, kết quả học được cập nhật theo từng chặng.</p></div></article>
+                    <article><span>试</span><div><h3>Đề thi bám chuẩn HSK</h3><p>Kho bài tập phân cấp và các buổi thi thử như phòng thi thật.</p></div></article>
+                    <article><span>用</span><div><h3>Ứng dụng tại Bắc Ninh</h3><p>Tình huống giao tiếp phù hợp môi trường học tập, nhà máy và văn phòng.</p></div></article>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-space">
+    <div class="container">
+        <div class="section-heading text-center mx-auto"><p class="eyebrow">LỊCH GẦN NHẤT</p><h2>Lớp sắp khai giảng</h2></div>
+        <div class="schedule-home">
+            {% for schedule in upcoming_schedules %}
+            <article>
+                <time datetime="{{ schedule.start_date|date:'Y-m-d' }}"><b>{{ schedule.start_date|date:"d" }}</b><span>Tháng {{ schedule.start_date|date:"m" }}</span></time>
+                <div><span class="pill">{{ schedule.class_code }}</span><h3>{{ schedule.course.title }}</h3><p>{{ schedule.schedule_text }} · {{ schedule.get_format_display }}</p></div>
+                <div class="seats"><b>{{ schedule.seats_left }}</b><span>chỗ còn lại</span></div>
+                <a class="btn btn-outline-brand" href="{% url 'admissions:consultation' %}?course={{ schedule.course_id }}">Giữ chỗ</a>
+            </article>
+            {% empty %}<p class="text-center">Lịch khai giảng sẽ được cập nhật sau khi chạy dữ liệu mẫu.</p>{% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-space testimonial-section">
+    <div class="container">
+        <div class="section-heading text-center mx-auto"><p class="eyebrow">CÂU CHUYỆN HỌC VIÊN</p><h2>Mỗi kết quả là một hành trình đáng tự hào</h2></div>
+        <div class="row g-4">
+            {% for item in testimonials %}
+            <div class="col-md-6 col-lg-4">
+                <article class="testimonial-card h-100">
+                    <div class="quote">“</div><p>{{ item.content }}</p>
+                    <div class="student">{% if item.avatar %}<img src="{{ item.avatar.url }}" alt="{{ item.student_name }}" loading="lazy">{% else %}<span>{{ item.student_name|slice:":1" }}</span>{% endif %}<div><strong>{{ item.student_name }}</strong><small>{{ item.course_name }}{% if item.score %} · {{ item.score }}{% endif %}</small></div></div>
+                </article>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4"><a class="text-link" href="{% url 'content:testimonials' %}">Xem thêm thành tích học viên →</a></div>
+    </div>
+</section>
+
+<section class="section-space consultation-section">
+    <div class="container">
+        <div class="consultation-panel">
+            <div>
+                <p class="eyebrow text-warning">BẠN CHƯA BIẾT BẮT ĐẦU TỪ ĐÂU?</p>
+                <h2>Nhận lộ trình học phù hợp trong 15 phút</h2>
+                <p>Để lại thông tin, tư vấn viên sẽ giúp bạn chọn cấp độ, lịch học và mục tiêu HSK phù hợp — hoàn toàn miễn phí.</p>
+                <ul><li>Đánh giá nhanh trình độ hiện tại</li><li>Gợi ý lớp đúng lịch cá nhân</li><li>Minh bạch học phí và thời lượng</li></ul>
+            </div>
+            <form method="post" action="{% url 'admissions:consultation' %}" class="quick-form">
+                {% csrf_token %}
+                {{ consultation_form.website }}{{ consultation_form.form_started }}
+                <div><label for="{{ consultation_form.full_name.id_for_label }}">Họ và tên</label>{{ consultation_form.full_name }}</div>
+                <div><label for="{{ consultation_form.phone.id_for_label }}">Số điện thoại</label>{{ consultation_form.phone }}</div>
+                <div><label for="{{ consultation_form.course.id_for_label }}">Khóa học quan tâm</label>{{ consultation_form.course }}</div>
+                <div class="form-check">{{ consultation_form.consent }} <label for="{{ consultation_form.consent.id_for_label }}">Tôi đồng ý để trung tâm liên hệ tư vấn.</label></div>
+                <button class="btn btn-warning w-100" type="submit">Nhận tư vấn miễn phí</button>
+                <small>Thông tin của bạn chỉ được dùng để tư vấn khóa học.</small>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section class="section-space">
+    <div class="container">
+        <div class="section-heading d-flex justify-content-between align-items-end"><div><p class="eyebrow">GÓC HỌC TẬP</p><h2>Học tiếng Trung dễ hiểu hơn</h2></div><a class="text-link d-none d-md-block" href="{% url 'content:blog_list' %}">Xem tất cả →</a></div>
+        <div class="row g-4">
+            {% for post in latest_posts %}
+            <div class="col-md-4"><article class="blog-card h-100"><div class="blog-visual">{% if post.featured_image %}<img src="{{ post.featured_image.url }}" alt="{{ post.title }}" loading="lazy">{% else %}<span>学</span><small>GÓC HSK</small>{% endif %}</div><div class="p-4"><time>{{ post.published_at|date:"d/m/Y" }}</time><h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3><p>{{ post.excerpt|truncatechars:125 }}</p></div></article></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

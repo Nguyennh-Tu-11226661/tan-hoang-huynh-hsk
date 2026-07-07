@@ -1,0 +1,13 @@
+<section class="page-hero">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'core:home' %}">Trang chủ</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ breadcrumb }}</li>
+            </ol>
+        </nav>
+        <p class="eyebrow">{{ eyebrow }}</p>
+        <h1>{{ heading }}</h1>
+        {% if intro %}<p class="page-lead">{{ intro }}</p>{% endif %}
+    </div>
+</section>

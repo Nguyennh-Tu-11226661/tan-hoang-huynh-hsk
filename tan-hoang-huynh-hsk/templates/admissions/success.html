@@ -1,0 +1,4 @@
+{% extends "base.html" %}
+{% block title %}Đăng ký thành công | Tân Hoàng Huynh HSK{% endblock %}
+{% block meta_description %}Yêu cầu của bạn đã được Trung tâm Tân Hoàng Huynh HSK ghi nhận.{% endblock %}
+{% block content %}<section class="success-page"><div class="success-card"><span>✓</span><p class="eyebrow">ĐÃ GHI NHẬN</p><h1>Cảm ơn bạn đã đăng ký!</h1>{% for message in messages %}<p class="lead">{{ message }}</p>{% empty %}<p class="lead">Tư vấn viên sẽ liên hệ với bạn trong giờ làm việc.</p>{% endfor %}<div class="d-flex flex-wrap justify-content-center gap-3"><a class="btn btn-brand" href="{% url 'core:home' %}">Về trang chủ</a><a class="btn btn-outline-brand" href="{% url 'courses:list' %}">Xem khóa học</a></div></div></section>{% endblock %}

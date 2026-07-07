@@ -1,0 +1,54 @@
+from django.http import HttpResponse
+from django.views.generic import TemplateView
+
+from admissions.forms import ConsultationRequestForm
+from content.models import BlogPost, Testimonial
+from courses.models import ClassSchedule, Course
+
+from .models import Banner, FAQ
+
+
+def robots_txt(request):
+    sitemap_url = request.build_absolute_uri("/sitemap.xml")
+    return HttpResponse(
+        f"User-agent: *\nAllow: /\nDisallow: /quan-tri/\nSitemap: {sitemap_url}\n",
+        content_type="text/plain",
+    )
+
+
+class HomeView(TemplateView):
+    template_name = "core/home.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        active_banners = Banner.objects.filter(is_active=True)
+        context.update(
+            {
+                "banner": active_banners.first(),
+                "featured_courses": Course.objects.filter(is_active=True, is_featured=True)[:6],
+                "upcoming_schedules": ClassSchedule.objects.filter(
+                    is_active=True
+                ).select_related("course")[:4],
+                "testimonials": Testimonial.objects.filter(is_active=True, is_featured=True)[:6],
+                "latest_posts": BlogPost.objects.filter(status=BlogPost.Status.PUBLISHED)[:3],
+                "consultation_form": ConsultationRequestForm(),
+            }
+        )
+        return context
+
+
+class AboutView(TemplateView):
+    template_name = "core/about.html"
+
+
+class FAQView(TemplateView):
+    template_name = "core/faq.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["faqs"] = FAQ.objects.filter(is_active=True)
+        return context
+
+
+class ContactView(TemplateView):
+    template_name = "core/contact.html"

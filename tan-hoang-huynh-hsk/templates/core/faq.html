@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Câu hỏi thường gặp về học tiếng Trung HSK tại Bắc Ninh{% endblock %}
+{% block meta_description %}Giải đáp học phí, lộ trình, lịch học, học thử và luyện thi HSK tại Trung tâm Tân Hoàng Huynh Bắc Ninh.{% endblock %}
+{% block content %}
+{% include "includes/page_header.html" with breadcrumb="Câu hỏi thường gặp" eyebrow="GIẢI ĐÁP NHANH" heading="Điều bạn cần biết trước khi bắt đầu" intro="Nếu chưa tìm thấy câu trả lời, đội ngũ tư vấn luôn sẵn sàng trao đổi trực tiếp cùng bạn." %}
+<section class="section-space"><div class="container"><div class="row g-5"><div class="col-lg-8">
+<div class="accordion faq-accordion" id="faqAccordion">
+{% for faq in faqs %}<div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button {% if not forloop.first %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#faq{{ faq.id }}" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}">{{ faq.question }}</button></h2><div id="faq{{ faq.id }}" class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" data-bs-parent="#faqAccordion"><div class="accordion-body">{{ faq.answer|linebreaks }}</div></div></div>{% empty %}<p>Vui lòng chạy lệnh tạo dữ liệu mẫu để hiển thị câu hỏi.</p>{% endfor %}
+</div></div><div class="col-lg-4"><aside class="help-card"><span>问</span><h2>Vẫn còn câu hỏi?</h2><p>Gọi hoặc nhắn Zalo để được tư vấn về lớp phù hợp trong giờ làm việc.</p>{% if site_contact %}<a class="btn btn-brand w-100 mb-2" href="tel:{{ site_contact.hotline }}">Gọi {{ site_contact.hotline }}</a>{% if site_contact.zalo_url %}<a class="btn btn-outline-brand w-100" href="{{ site_contact.zalo_url }}" target="_blank" rel="noopener">Nhắn Zalo</a>{% endif %}{% endif %}</aside></div></div></div></section>
+{% endblock %}

@@ -1,0 +1,20 @@
+<article class="course-card h-100">
+    <div class="course-visual level-{{ course.level|lower|slugify }}">
+        {% if course.image %}<img src="{{ course.image.url }}" alt="Lớp {{ course.title }}" loading="lazy">{% endif %}
+        <span>{{ course.level }}</span>
+        <strong>汉语</strong>
+    </div>
+    <div class="course-card-body">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="pill">{{ course.duration }}</span>
+            <span class="small text-muted">{{ course.sessions }} buổi</span>
+        </div>
+        <h3><a href="{{ course.get_absolute_url }}">{{ course.title }}</a></h3>
+        <p>{{ course.short_description }}</p>
+        <div class="course-meta">
+            <span>👥 {{ course.class_size }}</span>
+            <strong>{{ course.tuition|floatformat:0 }}đ</strong>
+        </div>
+        <a class="text-link" href="{{ course.get_absolute_url }}">Xem lộ trình <span>→</span></a>
+    </div>
+</article>

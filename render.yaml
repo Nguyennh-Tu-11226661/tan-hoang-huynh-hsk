@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: tan-hoang-huynh-hsk
+    runtime: python
+    plan: free
+    rootDir: tan-hoang-huynh-hsk
+    buildCommand: bash build.sh
+    preDeployCommand: python manage.py migrate
+    startCommand: gunicorn config.wsgi:application
+    healthCheckPath: /
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: tan-hoang-huynh-hsk-db
+          property: connectionString
+      - key: SECURE_SSL_REDIRECT
+        value: "True"
+
+databases:
+  - name: tan-hoang-huynh-hsk-db
+    plan: free

@@ -1,0 +1,103 @@
+{% load static %}
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Trung tâm Tiếng Trung Tân Hoàng Huynh HSK{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Học tiếng Trung và luyện thi HSK tại Bắc Ninh với lộ trình cá nhân hóa, lớp sĩ số nhỏ và giáo viên theo sát.{% endblock %}">
+    <meta name="robots" content="index, follow">
+    <meta property="og:locale" content="vi_VN">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{% block og_title %}Tân Hoàng Huynh HSK Bắc Ninh{% endblock %}">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    <link rel="icon" href="{% static 'img/favicon.svg' %}" type="image/svg+xml">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/site.css' %}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <div class="topbar">
+        <div class="container d-flex justify-content-between align-items-center gap-3">
+            {% if site_contact %}<a href="tel:{{ site_contact.hotline }}">Hotline: {{ site_contact.hotline }}</a>{% endif %}
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-xl bg-white sticky-top shadow-sm" aria-label="Điều hướng chính">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'core:home' %}">
+                <span class="brand-mark">谭</span>
+                <span><strong>TÂN HOÀNG HUYNH</strong><small>HSK · BẮC NINH</small></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Mở menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto align-items-xl-center">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'core:about' %}">Giới thiệu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'courses:list' %}">Khóa học</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'courses:schedule' %}">Khai giảng</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'content:testimonials' %}">Thành tích</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'content:gallery' %}">Thư viện</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'content:blog_list' %}">Góc học tập</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'core:contact' %}">Liên hệ</a></li>
+                </ul>
+                <a class="btn btn-brand ms-xl-3" href="{% url 'admissions:trial' %}">Học thử miễn phí</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>{% block content %}{% endblock %}</main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-5">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span class="brand-mark brand-mark-light">谭</span>
+                        <strong class="fs-5">TRUNG TÂM TIẾNG TRUNG<br>TÂN HOÀNG HUYNH HSK</strong>
+                    </div>
+                    <p>Đồng hành cùng người học Bắc Ninh từ buổi phát âm đầu tiên đến mục tiêu HSK và giao tiếp công việc.</p>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h2 class="footer-title">Khám phá</h2>
+                    <a href="{% url 'courses:list' %}">Khóa học</a>
+                    <a href="{% url 'courses:schedule' %}">Lịch khai giảng</a>
+                    <a href="{% url 'core:faq' %}">Câu hỏi thường gặp</a>
+                    <a href="{% url 'content:blog_list' %}">Blog tiếng Trung</a>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h2 class="footer-title">Đăng ký</h2>
+                    <a href="{% url 'admissions:consultation' %}">Tư vấn lộ trình</a>
+                    <a href="{% url 'admissions:trial' %}">Học thử / test</a>
+                    {% if site_contact.facebook_url %}<a href="{{ site_contact.facebook_url }}" target="_blank" rel="noopener">Facebook</a>{% endif %}
+                    {% if site_contact.zalo_url %}<a href="{{ site_contact.zalo_url }}" target="_blank" rel="noopener">Zalo</a>{% endif %}
+                    {% if site_contact.messenger_url %}<a href="{{ site_contact.messenger_url }}" target="_blank" rel="noopener">Messenger</a>{% endif %}
+                </div>
+                <div class="col-lg-3">
+                    <h2 class="footer-title">Liên hệ</h2>
+                    {% if site_contact %}
+                    <p class="mb-2">{{ site_contact.address }}</p>
+                    <p class="mb-2"><a href="tel:{{ site_contact.hotline }}">{{ site_contact.hotline }}</a></p>
+                    <p class="mb-2"><a href="mailto:{{ site_contact.email }}">{{ site_contact.email }}</a></p>
+                    <p>{{ site_contact.working_hours }}</p>
+                    {% else %}
+                    <p>Thành phố Bắc Ninh, tỉnh Bắc Ninh</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="footer-bottom">© {% now "Y" %} Tân Hoàng Huynh HSK. Nội dung được biên soạn cho người học tiếng Trung tại Bắc Ninh.</div>
+        </div>
+    </footer>
+
+    <div class="quick-actions" aria-label="Liên hệ nhanh">
+        {% if site_contact %}
+        <a class="quick-call" href="tel:{{ site_contact.hotline }}" aria-label="Gọi hotline"><span>☎</span><b>Gọi ngay</b></a>
+        {% if site_contact.zalo_url %}<a class="quick-zalo" href="{{ site_contact.zalo_url }}" target="_blank" rel="noopener" aria-label="Liên hệ Zalo"><span>Z</span><b>Zalo</b></a>{% endif %}
+        {% endif %}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/site.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

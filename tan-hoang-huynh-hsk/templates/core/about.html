@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Giới thiệu Trung tâm Tân Hoàng Huynh HSK Bắc Ninh{% endblock %}
+{% block meta_description %}Tìm hiểu phương pháp, đội ngũ và cam kết đào tạo tiếng Trung thực chất của Trung tâm Tân Hoàng Huynh HSK tại Bắc Ninh.{% endblock %}
+{% block content %}
+{% include "includes/page_header.html" with breadcrumb="Giới thiệu" eyebrow="CÂU CHUYỆN CỦA CHÚNG TÔI" heading="Một nơi học tiếng Trung bằng mục tiêu rõ ràng" intro="Tân Hoàng Huynh HSK được xây dựng để người học Bắc Ninh không còn phải tự xoay xở giữa quá nhiều giáo trình và lời khuyên rời rạc." %}
+<section class="section-space"><div class="container"><div class="row g-5 align-items-center">
+    <div class="col-lg-6"><div class="about-visual"><span>谭</span><div><b>HỌC ĐÚNG</b><b>LUYỆN CHẮC</b><b>DÙNG ĐƯỢC</b></div></div></div>
+    <div class="col-lg-6"><p class="eyebrow">TỪ BẮC NINH, ĐẾN NHỮNG MỤC TIÊU LỚN</p><h2>Tiếng Trung không khó khi có người chỉ đúng đường</h2><p class="lead">Chúng tôi bắt đầu từ một câu hỏi đơn giản: làm sao để mỗi giờ học đều đưa học viên gần hơn tới mục tiêu?</p><p>Vì thế, mọi khóa học tại Tân Hoàng Huynh đều bắt đầu bằng đánh giá đầu vào, có mốc tiến độ cụ thể và kết thúc bằng năng lực có thể đo lường. Học viên không chỉ nhớ từ để làm bài thi, mà còn biết cách nghe, phản xạ và dùng tiếng Trung trong đời sống, trường học, nhà máy và văn phòng.</p></div>
+</div></div></section>
+<section class="section-space bg-soft"><div class="container"><div class="section-heading text-center mx-auto"><p class="eyebrow">GIÁ TRỊ THEO ĐUỔI</p><h2>Ba điều không thỏa hiệp</h2></div><div class="row g-4">
+    <div class="col-md-4"><article class="value-card"><span>真</span><h3>Thực chất</h3><p>Không hứa hẹn điểm số dễ dàng. Tiến bộ đến từ giáo trình đúng, luyện tập đủ và phản hồi kịp thời.</p></article></div>
+    <div class="col-md-4"><article class="value-card"><span>伴</span><h3>Đồng hành</h3><p>Lớp học sĩ số nhỏ để mỗi lỗi phát âm, mỗi điểm yếu ngữ pháp đều được nhìn thấy và sửa đúng.</p></article></div>
+    <div class="col-md-4"><article class="value-card"><span>进</span><h3>Tiến bộ</h3><p>Mỗi chặng đều có bài đánh giá, giúp học viên biết mình đã đi đến đâu và cần cải thiện gì tiếp theo.</p></article></div>
+</div></div></section>
+<section class="section-space"><div class="container"><div class="row g-5">
+    <div class="col-lg-5"><p class="eyebrow">PHƯƠNG PHÁP 4T</p><h2>Học để phản xạ, không học để quên</h2><p>Từng buổi học được thiết kế theo nhịp độ giúp kiến thức đi từ nhận biết đến sử dụng tự nhiên.</p></div>
+    <div class="col-lg-7"><div class="method-list"><div><b>01</b><h3>Tiếp nhận</h3><p>Hiểu từ vựng và cấu trúc qua ngữ cảnh gần gũi.</p></div><div><b>02</b><h3>Tương tác</h3><p>Luyện nghe nói theo cặp, tình huống và phản xạ nhanh.</p></div><div><b>03</b><h3>Thực hành</h3><p>Vận dụng qua bài tập HSK và giao tiếp đời sống.</p></div><div><b>04</b><h3>Theo dõi</h3><p>Đánh giá định kỳ và điều chỉnh kế hoạch cá nhân.</p></div></div></div>
+</div></div></section>
+<section class="cta-band"><div class="container d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-4"><div><p class="eyebrow text-warning">GẶP CHÚNG TÔI TRONG MỘT BUỔI HỌC</p><h2>Trải nghiệm lớp học trước khi quyết định</h2></div><a class="btn btn-warning btn-lg" href="{% url 'admissions:trial' %}">Đặt lịch học thử</a></div></section>
+{% endblock %}
