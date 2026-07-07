@@ -49,6 +49,7 @@ class ContactInfo(models.Model):
     zalo_url = models.URLField("Zalo", blank=True)
     facebook_url = models.URLField("Facebook", blank=True)
     messenger_url = models.URLField("Messenger", blank=True)
+    tiktok_url = models.URLField("TikTok", blank=True)
     map_embed_url = models.URLField("Link nhúng Google Maps", max_length=1000, blank=True)
     working_hours = models.CharField("Giờ làm việc", max_length=255)
     is_active = models.BooleanField("Đang sử dụng", default=True)

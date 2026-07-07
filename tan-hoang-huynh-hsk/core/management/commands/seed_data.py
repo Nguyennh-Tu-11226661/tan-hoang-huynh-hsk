@@ -43,8 +43,15 @@ class Command(BaseCommand):
                 "zalo_url": os.getenv(
                     "CENTER_ZALO_URL", "https://zalo.me/0988668596"
                 ),
-                "facebook_url": os.getenv("CENTER_FACEBOOK_URL", ""),
+                "facebook_url": os.getenv(
+                    "CENTER_FACEBOOK_URL",
+                    "https://www.facebook.com/profile.php?id=61578072303057",
+                ),
                 "messenger_url": os.getenv("CENTER_MESSENGER_URL", ""),
+                "tiktok_url": os.getenv(
+                    "CENTER_TIKTOK_URL",
+                    "https://www.tiktok.com/@tanhoanghuynhhsk",
+                ),
                 "map_embed_url": os.getenv(
                     "CENTER_MAP_EMBED_URL",
                     "https://www.google.com/maps?q=So+86+Nguyen+Gia+Thieu,+Suoi+Hoa,+Bac+Ninh&output=embed",
