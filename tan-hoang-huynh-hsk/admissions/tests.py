@@ -65,6 +65,27 @@ class AdmissionFormTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(TrialLessonBooking.objects.count(), 0)
 
+    def test_trial_submission_saves_booking(self):
+        response = self.client.post(
+            reverse("admissions:trial"),
+            {
+                "full_name": "Nguyễn Minh An",
+                "phone": "0988668596",
+                "email": "an@example.com",
+                "booking_type": "placement",
+                "preferred_date": (timezone.localdate() + timedelta(days=1)).isoformat(),
+                "preferred_slot": "18:00–20:00",
+                "current_level": "Mất gốc",
+                "goal": "Muốn học HSK 3",
+                "consent": "on",
+                "website": "",
+                "form_started": self.token(),
+            },
+        )
+
+        self.assertRedirects(response, reverse("admissions:success"))
+        self.assertEqual(TrialLessonBooking.objects.count(), 1)
+
     def test_rate_limit_blocks_immediate_second_submission(self):
         payload = {
             "full_name": "Nguyễn Minh An",

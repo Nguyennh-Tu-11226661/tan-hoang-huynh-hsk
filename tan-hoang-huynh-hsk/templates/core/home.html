@@ -63,7 +63,7 @@
             {% for course in featured_courses %}
             <div class="col-md-6 col-xl-4">{% include "includes/course_card.html" %}</div>
             {% empty %}
-            <p>Dữ liệu khóa học sẽ xuất hiện sau khi chạy lệnh tạo dữ liệu mẫu.</p>
+            <p class="text-muted">Trung tâm đang cập nhật lịch tuyển sinh mới. Vui lòng gọi hotline hoặc nhắn Zalo để nhận lộ trình phù hợp.</p>
             {% endfor %}
         </div>
     </div>
@@ -118,7 +118,7 @@
                 <div class="seats"><b>{{ schedule.seats_left }}</b><span>chỗ còn lại</span></div>
                 <a class="btn btn-outline-brand" href="{% url 'admissions:consultation' %}?course={{ schedule.course_id }}">Giữ chỗ</a>
             </article>
-            {% empty %}<p class="text-center">Lịch khai giảng sẽ được cập nhật sau khi chạy dữ liệu mẫu.</p>{% endfor %}
+            {% empty %}<p class="text-center">Lịch khai giảng mới đang được xếp theo nhu cầu học viên. Vui lòng liên hệ trung tâm để nhận lịch gần nhất.</p>{% endfor %}
         </div>
     </div>
 </section>

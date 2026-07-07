@@ -54,6 +54,19 @@ class PublicPageTests(TestCase):
         self.assertContains(response, "Kiểm tra trình độ")
         self.assertContains(response, 'href="/dat-lich-hoc-thu/"')
 
+    def test_public_pages_do_not_show_seed_data_instructions(self):
+        public_pages = [
+            "core:home",
+            "core:faq",
+            "core:contact",
+            "content:gallery",
+        ]
+        for name in public_pages:
+            with self.subTest(name=name):
+                response = self.client.get(reverse(name))
+                self.assertNotContains(response, "dữ liệu mẫu")
+                self.assertNotContains(response, "chạy lệnh")
+
     def test_empty_optional_social_links_are_not_rendered(self):
         contact = ContactInfo.objects.first()
         contact.facebook_url = ""
