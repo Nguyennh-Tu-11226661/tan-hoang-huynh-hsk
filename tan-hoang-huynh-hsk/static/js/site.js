@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
             courseItems.forEach((item) => {
                 const text = item.dataset.search || "";
                 const aliases = {
+                    yct: "yct",
                     hsk: "hsk",
                     "giao-tiep": "giao tiếp",
                     "nguoi-moi": "người mới",

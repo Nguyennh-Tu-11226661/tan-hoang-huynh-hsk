@@ -75,5 +75,5 @@ class PublicPageTests(TestCase):
                 self.assertTrue(banner.image)
                 self.assertTrue(banner.image.storage.exists(banner.image.name))
                 self.assertEqual(GalleryImage.objects.exclude(image="").count(), 5)
-                self.assertEqual(Course.objects.exclude(image="").count(), 6)
+                self.assertEqual(Course.objects.exclude(image="").count(), 12)
                 self.assertEqual(BlogPost.objects.exclude(featured_image="").count(), 4)
