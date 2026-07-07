@@ -5,7 +5,6 @@ services:
     plan: free
     rootDir: tan-hoang-huynh-hsk
     buildCommand: bash build.sh
-    preDeployCommand: python manage.py migrate
     startCommand: gunicorn config.wsgi:application
     healthCheckPath: /
     envVars:
