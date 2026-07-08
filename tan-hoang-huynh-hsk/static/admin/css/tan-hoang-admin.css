@@ -415,25 +415,83 @@ select:focus {
 }
 
 .login #container {
-    width: min(100% - 32px, 520px);
-    margin-top: 8vh;
+    width: min(100% - 32px, 430px);
+    margin: 8vh auto 0;
     border: 0;
     border-radius: 14px;
     box-shadow: var(--shadow);
 }
 
 .login #header {
+    justify-content: center;
+    min-height: auto;
+    padding: 26px 30px;
     border-radius: 14px 14px 0 0;
+    text-align: left;
+}
+
+.login #branding {
+    width: 100%;
+}
+
+.login .brand-admin {
+    justify-content: center;
+}
+
+.login .brand-admin img {
+    width: 48px;
+    height: 48px;
+}
+
+.login .brand-admin h1 {
+    font-size: 1.22rem;
+}
+
+.login .brand-admin span {
+    font-size: .85rem;
 }
 
 .login #content {
     width: auto;
-    padding: 28px;
+    padding: 30px 34px 34px;
+}
+
+.login #content-main {
+    width: 100% !important;
 }
 
 .login .form-row {
-    padding: 0 0 16px;
+    padding: 0 0 18px;
     border: 0;
+}
+
+.login .form-row label {
+    display: block;
+    margin: 0 0 8px;
+    color: var(--ink);
+    font-weight: 700;
+}
+
+.login .form-row input {
+    width: 100%;
+    min-height: 44px;
+    padding: 9px 12px;
+}
+
+.login .submit-row {
+    margin: 8px 0 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    text-align: left;
+}
+
+.login .submit-row input {
+    width: 100%;
+    min-height: 46px;
+    margin: 0;
+    border-radius: 10px;
+    font-size: .98rem;
 }
 
 .messagelist li {
