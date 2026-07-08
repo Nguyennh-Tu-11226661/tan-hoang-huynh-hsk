@@ -70,6 +70,14 @@ Không commit `.env`, mật khẩu database hoặc secret key lên Git.
 không được hiển thị nếu chưa có URL thật, tránh đưa người dùng tới liên kết
 chung hoặc liên kết không thuộc trung tâm.
 
+Đăng ký tư vấn và đặt lịch học thử luôn được lưu trong trang quản trị
+`/quan-tri/`. Để nhận thêm email báo học viên mới, cấu hình:
+
+- `ADMISSION_NOTIFICATION_EMAILS`: email nhận thông báo, có thể nhập nhiều email cách nhau bằng dấu phẩy
+- `EMAIL_BACKEND`: ví dụ `django.core.mail.backends.smtp.EmailBackend`
+- `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`
+- `EMAIL_USE_TLS`, `DEFAULT_FROM_EMAIL`
+
 ## Chuyển sang PostgreSQL
 
 Tạo database và user trước, sau đó đặt biến môi trường:

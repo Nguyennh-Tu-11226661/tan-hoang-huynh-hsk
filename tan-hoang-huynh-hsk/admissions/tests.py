@@ -3,7 +3,9 @@ from datetime import timedelta
 from io import BytesIO
 
 from django.core import signing
+from django.core import mail
 from django.test import RequestFactory, TestCase
+from django.test import override_settings
 from django.urls import reverse
 from django.utils import timezone
 from openpyxl import load_workbook
@@ -16,6 +18,10 @@ class AdmissionFormTests(TestCase):
     def token(self):
         return signing.dumps(int(time.time()) - 3)
 
+    @override_settings(
+        EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend",
+        ADMISSION_NOTIFICATION_EMAILS=["tuvan@example.com"],
+    )
     def test_consultation_submission(self):
         response = self.client.post(
             reverse("admissions:consultation"),
@@ -33,6 +39,8 @@ class AdmissionFormTests(TestCase):
         )
         self.assertRedirects(response, reverse("admissions:success"))
         self.assertEqual(ConsultationRequest.objects.count(), 1)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn("Đăng ký tư vấn mới", mail.outbox[0].subject)
 
     def test_honeypot_blocks_spam(self):
         response = self.client.post(
@@ -65,6 +73,10 @@ class AdmissionFormTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(TrialLessonBooking.objects.count(), 0)
 
+    @override_settings(
+        EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend",
+        ADMISSION_NOTIFICATION_EMAILS=["tuvan@example.com"],
+    )
     def test_trial_submission_saves_booking(self):
         response = self.client.post(
             reverse("admissions:trial"),
@@ -85,6 +97,8 @@ class AdmissionFormTests(TestCase):
 
         self.assertRedirects(response, reverse("admissions:success"))
         self.assertEqual(TrialLessonBooking.objects.count(), 1)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn("Đặt lịch học thử/test mới", mail.outbox[0].subject)
 
     def test_rate_limit_blocks_immediate_second_submission(self):
         payload = {

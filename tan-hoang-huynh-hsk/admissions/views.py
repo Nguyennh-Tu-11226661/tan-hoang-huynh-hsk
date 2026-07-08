@@ -6,6 +6,7 @@ from django.views.generic import CreateView, TemplateView
 
 from .forms import ConsultationRequestForm, TrialLessonBookingForm
 from .models import ConsultationRequest, TrialLessonBooking
+from .notifications import notify_consultation_request, notify_trial_booking
 
 
 class RateLimitMixin:
@@ -37,6 +38,7 @@ class ConsultationCreateView(RateLimitMixin, CreateView):
         response = super().form_valid(form)
         if form.errors:
             return response
+        notify_consultation_request(self.object)
         messages.success(
             self.request,
             "Đăng ký đã được ghi nhận. Tư vấn viên sẽ gọi lại trong giờ làm việc.",
@@ -54,6 +56,7 @@ class TrialLessonCreateView(RateLimitMixin, CreateView):
         response = super().form_valid(form)
         if form.errors:
             return response
+        notify_trial_booking(self.object)
         messages.success(
             self.request,
             "Đặt lịch thành công. Trung tâm sẽ liên hệ để xác nhận khung giờ.",
