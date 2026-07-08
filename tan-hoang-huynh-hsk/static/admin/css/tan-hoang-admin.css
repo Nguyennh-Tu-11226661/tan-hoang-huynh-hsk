@@ -119,9 +119,11 @@ div.breadcrumbs {
 }
 
 #content {
-    width: min(100% - 32px, 1240px);
-    margin: 0 auto;
+    width: auto;
+    max-width: none;
+    margin: 0;
     padding: 30px 0 56px;
+    padding-inline: clamp(18px, 4vw, 48px);
 }
 
 #content h1 {
@@ -133,7 +135,7 @@ div.breadcrumbs {
 
 .dashboard #content {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+    grid-template-columns: minmax(520px, 1fr) minmax(320px, 420px);
     gap: 24px;
     align-items: start;
 }
@@ -144,6 +146,8 @@ div.breadcrumbs {
 
 #content-main,
 #content-related {
+    width: auto !important;
+    max-width: none;
     min-width: 0;
 }
 
@@ -251,9 +255,9 @@ div.breadcrumbs {
     justify-content: flex-end;
 }
 
-.addlink,
-.changelink,
-.deletelink {
+.dashboard .module table td a.addlink,
+.dashboard .module table td a.changelink,
+.dashboard .module table td a.deletelink {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -267,17 +271,17 @@ div.breadcrumbs {
     white-space: nowrap;
 }
 
-.addlink {
+.dashboard .module table td a.addlink {
     background-color: #ecf8f0;
     color: var(--success) !important;
 }
 
-.changelink {
+.dashboard .module table td a.changelink {
     background-color: #fff6df;
     color: var(--warning) !important;
 }
 
-.deletelink {
+.dashboard .module table td a.deletelink {
     background-color: #fff0f2;
     color: var(--danger) !important;
 }
@@ -371,19 +375,23 @@ select:focus {
 #recent-actions-module .actionlist {
     max-height: 560px;
     overflow: auto;
-    padding: 0 16px 16px;
+    padding: 0;
 }
 
 #recent-actions-module .actionlist li {
-    display: grid;
-    grid-template-columns: 22px minmax(0, 1fr);
-    gap: 8px;
+    display: block;
+    min-width: 0;
+    min-height: 0;
     margin: 0;
-    padding: 12px 0;
+    padding: 12px 16px 12px 40px;
     border-bottom: 1px solid #edf2f7;
+    border-radius: 0;
+    background-color: transparent !important;
+    background-position: 16px 14px;
     color: var(--muted);
     font-size: .9rem;
     line-height: 1.35;
+    white-space: normal;
 }
 
 #recent-actions-module .actionlist li:last-child {
@@ -391,8 +399,7 @@ select:focus {
 }
 
 #recent-actions-module .actionlist li::before {
-    grid-column: 1;
-    margin-top: 2px;
+    display: none;
 }
 
 #recent-actions-module .actionlist a {
@@ -466,13 +473,14 @@ select:focus {
     }
 
     #content {
-        width: min(100% - 20px, 1240px);
+        width: auto;
+        padding-inline: 12px;
         padding-top: 20px;
     }
 
     .dashboard .module table tr {
-        grid-template-columns: minmax(112px, 1fr) auto auto;
-        gap: 6px;
+        grid-template-columns: minmax(132px, 1fr) 42px 42px;
+        gap: 8px;
         padding: 10px 12px;
         border-bottom: 1px solid #edf2f7;
     }
@@ -497,9 +505,9 @@ select:focus {
         justify-content: flex-end;
     }
 
-    .dashboard .addlink,
-    .dashboard .changelink,
-    .dashboard .deletelink {
+    .dashboard .module table td a.addlink,
+    .dashboard .module table td a.changelink,
+    .dashboard .module table td a.deletelink {
         width: 38px;
         min-width: 38px;
         height: 38px;
@@ -510,7 +518,8 @@ select:focus {
     }
 
     #recent-actions-module .actionlist li {
-        grid-template-columns: 18px minmax(0, 1fr);
+        padding: 12px 14px 12px 38px;
+        background-position: 14px 14px;
         font-size: .88rem;
     }
 }
