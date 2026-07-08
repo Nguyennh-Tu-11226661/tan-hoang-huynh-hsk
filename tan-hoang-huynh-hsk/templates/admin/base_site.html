@@ -1,0 +1,19 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'admin/css/tan-hoang-admin.css' %}">
+{% endblock %}
+
+{% block branding %}
+<div class="brand-admin">
+    <img src="{% static 'img/official-logo-mark.png' %}" alt="" width="40" height="40">
+    <div>
+        <h1 id="site-name">
+            <a href="{% url 'admin:index' %}">Tân Hoàng Huynh HSK</a>
+        </h1>
+        <span>Quản lý nội dung và tuyển sinh</span>
+    </div>
+</div>
+{% endblock %}

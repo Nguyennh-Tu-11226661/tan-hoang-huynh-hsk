@@ -3,6 +3,7 @@ from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
+from django.contrib.staticfiles import finders
 from django.test import TestCase
 from django.urls import reverse
 
@@ -119,3 +120,23 @@ class EnsureSuperuserCommandTests(TestCase):
 
         User = get_user_model()
         self.assertFalse(User.objects.exists())
+
+
+class AdminInterfaceTests(TestCase):
+    def test_admin_uses_custom_stylesheet(self):
+        User = get_user_model()
+        User.objects.create_superuser(
+            username="admin",
+            email="admin@example.com",
+            password="StrongPassword123!",
+        )
+        self.client.login(username="admin", password="StrongPassword123!")
+
+        response = self.client.get(reverse("admin:index"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "admin/css/tan-hoang-admin.css")
+        self.assertContains(response, "Quản lý nội dung và tuyển sinh")
+
+    def test_custom_admin_stylesheet_exists(self):
+        self.assertIsNotNone(finders.find("admin/css/tan-hoang-admin.css"))
