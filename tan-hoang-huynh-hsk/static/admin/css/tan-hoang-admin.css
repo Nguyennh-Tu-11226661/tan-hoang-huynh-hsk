@@ -119,11 +119,10 @@ div.breadcrumbs {
 }
 
 #content {
-    width: auto;
-    max-width: none;
-    margin: 0;
-    padding: 30px 0 56px;
-    padding-inline: clamp(18px, 4vw, 48px);
+    width: min(100% - 48px, 1280px);
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 34px 0 56px;
 }
 
 #content h1 {
@@ -135,8 +134,8 @@ div.breadcrumbs {
 
 .dashboard #content {
     display: grid;
-    grid-template-columns: minmax(520px, 1fr) minmax(320px, 420px);
-    gap: 24px;
+    grid-template-columns: minmax(560px, 1.55fr) minmax(360px, .95fr);
+    gap: 28px;
     align-items: start;
 }
 
@@ -174,17 +173,17 @@ div.breadcrumbs {
     border: 1px solid var(--line);
     border-radius: 12px;
     background: var(--surface);
-    box-shadow: var(--shadow);
+    box-shadow: 0 14px 34px rgba(8, 38, 72, .07);
 }
 
 .module {
-    margin-bottom: 22px;
+    margin-bottom: 24px;
 }
 
 .module caption,
 .inline-group h2,
 #content-related .module h2 {
-    padding: 14px 16px;
+    padding: 15px 20px;
     background: var(--primary);
     color: #fff;
     font-size: .88rem;
@@ -206,7 +205,7 @@ div.breadcrumbs {
 
 .module table th,
 .module table td {
-    padding: 13px 16px;
+    padding: 12px 20px;
     border-bottom: 1px solid #edf2f7;
     vertical-align: middle;
 }
@@ -232,7 +231,7 @@ div.breadcrumbs {
 
 .dashboard .module table tr {
     display: grid;
-    grid-template-columns: minmax(190px, 1fr) minmax(112px, auto) minmax(112px, auto);
+    grid-template-columns: minmax(210px, 1fr) 132px 132px;
     align-items: center;
 }
 
@@ -242,7 +241,7 @@ div.breadcrumbs {
     align-items: center;
     width: auto;
     min-width: 0;
-    min-height: 56px;
+    min-height: 50px;
 }
 
 .dashboard .module table th a {
@@ -261,11 +260,11 @@ div.breadcrumbs {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 32px;
-    min-width: 118px;
-    padding: 6px 10px 6px 28px;
-    border-radius: 999px;
-    background-position: 10px center;
+    min-height: 36px;
+    min-width: 116px;
+    padding: 6px 12px 6px 30px;
+    border-radius: 10px;
+    background-position: 12px center;
     background-repeat: no-repeat;
     font-weight: 700;
     white-space: nowrap;
@@ -373,8 +372,8 @@ select:focus {
 }
 
 #recent-actions-module .actionlist {
-    max-height: 560px;
-    overflow: auto;
+    max-height: none;
+    overflow: visible;
     padding: 0;
 }
 
@@ -383,14 +382,14 @@ select:focus {
     min-width: 0;
     min-height: 0;
     margin: 0;
-    padding: 12px 16px 12px 40px;
+    padding: 13px 18px 13px 42px;
     border-bottom: 1px solid #edf2f7;
     border-radius: 0;
     background-color: transparent !important;
-    background-position: 16px 14px;
+    background-position: 18px 15px;
     color: var(--muted);
     font-size: .9rem;
-    line-height: 1.35;
+    line-height: 1.4;
     white-space: normal;
 }
 
@@ -473,15 +472,14 @@ select:focus {
     }
 
     #content {
-        width: auto;
-        padding-inline: 12px;
+        width: min(100% - 20px, 1280px);
         padding-top: 20px;
     }
 
     .dashboard .module table tr {
-        grid-template-columns: minmax(132px, 1fr) 42px 42px;
+        grid-template-columns: minmax(138px, 1fr) 40px 40px;
         gap: 8px;
-        padding: 10px 12px;
+        padding: 12px 14px;
         border-bottom: 1px solid #edf2f7;
     }
 
@@ -511,6 +509,7 @@ select:focus {
         width: 38px;
         min-width: 38px;
         height: 38px;
+        min-height: 38px;
         padding: 0;
         background-position: center;
         color: transparent !important;
@@ -518,7 +517,7 @@ select:focus {
     }
 
     #recent-actions-module .actionlist li {
-        padding: 12px 14px 12px 38px;
+        padding: 12px 14px 12px 40px;
         background-position: 14px 14px;
         font-size: .88rem;
     }
