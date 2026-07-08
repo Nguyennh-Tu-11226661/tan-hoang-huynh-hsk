@@ -1,5 +1,7 @@
 import tempfile
+from unittest.mock import patch
 
+from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test import TestCase
 from django.urls import reverse
@@ -90,3 +92,30 @@ class PublicPageTests(TestCase):
                 self.assertEqual(GalleryImage.objects.exclude(image="").count(), 5)
                 self.assertEqual(Course.objects.exclude(image="").count(), 12)
                 self.assertEqual(BlogPost.objects.exclude(featured_image="").count(), 4)
+
+
+class EnsureSuperuserCommandTests(TestCase):
+    def test_command_creates_superuser_from_environment(self):
+        with patch.dict(
+            "os.environ",
+            {
+                "DJANGO_SUPERUSER_USERNAME": "admin",
+                "DJANGO_SUPERUSER_EMAIL": "admin@example.com",
+                "DJANGO_SUPERUSER_PASSWORD": "StrongPassword123!",
+            },
+        ):
+            call_command("ensure_superuser", verbosity=0)
+
+        User = get_user_model()
+        user = User.objects.get(username="admin")
+        self.assertEqual(user.email, "admin@example.com")
+        self.assertTrue(user.is_staff)
+        self.assertTrue(user.is_superuser)
+        self.assertTrue(user.check_password("StrongPassword123!"))
+
+    def test_command_skips_when_required_environment_is_missing(self):
+        with patch.dict("os.environ", {}, clear=True):
+            call_command("ensure_superuser", verbosity=0)
+
+        User = get_user_model()
+        self.assertFalse(User.objects.exists())

@@ -78,6 +78,16 @@ chung hoặc liên kết không thuộc trung tâm.
 - `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`
 - `EMAIL_USE_TLS`, `DEFAULT_FROM_EMAIL`
 
+Khi deploy trên Render Free và không dùng được Shell, có thể tạo hoặc cập nhật
+tài khoản quản trị bằng biến môi trường:
+
+- `DJANGO_SUPERUSER_USERNAME`: tên đăng nhập quản trị
+- `DJANGO_SUPERUSER_EMAIL`: email quản trị
+- `DJANGO_SUPERUSER_PASSWORD`: mật khẩu quản trị
+
+Lệnh build sẽ tự chạy `python manage.py ensure_superuser` sau khi migrate.
+Không lưu mật khẩu quản trị trực tiếp trong mã nguồn.
+
 ## Chuyển sang PostgreSQL
 
 Tạo database và user trước, sau đó đặt biến môi trường:
@@ -145,6 +155,9 @@ Ví dụ với Render, Railway hoặc máy chủ Linux:
    ```
 
 5. Chạy một lần `python manage.py seed_data` và `python manage.py createsuperuser`.
+   Nếu không dùng được Shell, đặt `DJANGO_SUPERUSER_USERNAME`,
+   `DJANGO_SUPERUSER_EMAIL`, `DJANGO_SUPERUSER_PASSWORD` trong Render Environment
+   rồi deploy lại để build tự tạo tài khoản quản trị.
 6. Dùng dịch vụ lưu ảnh bền vững (S3/Cloudinary) khi deploy trên nền tảng có filesystem tạm thời.
 7. Bật HTTPS và đặt `SECURE_SSL_REDIRECT=True`.
 
@@ -168,6 +181,10 @@ Render tự tạo web service, PostgreSQL database, collect static và migrate.
    ```bash
    python manage.py createsuperuser
    ```
+
+   Nếu gói Free không dùng được Shell, thêm các biến `DJANGO_SUPERUSER_USERNAME`,
+   `DJANGO_SUPERUSER_EMAIL`, `DJANGO_SUPERUSER_PASSWORD` vào Environment Group
+   rồi deploy lại.
 
 6. Nếu cần nạp dữ liệu mẫu, chạy thêm:
 
