@@ -128,6 +128,12 @@ cho phép sử dụng và cập nhật:
 - Link nhúng Google Maps
 - Học phí, giảng viên và lịch khai giảng thực tế
 
+Ảnh tải lên qua admin được lưu trong thư mục `media/` và được phục vụ qua đường
+dẫn `/media/...`. Trên Render Free, filesystem của web service không bền vững
+qua deploy/restart, vì vậy ảnh upload trực tiếp có thể cần tải lại sau deploy.
+Khi vận hành lâu dài, nên chuyển ảnh upload sang dịch vụ lưu trữ bền vững như
+S3 hoặc Cloudinary.
+
 ## Kiểm tra project
 
 ```powershell

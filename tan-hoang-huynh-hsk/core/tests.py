@@ -6,6 +6,7 @@ from django.core.management import call_command
 from django.contrib.staticfiles import finders
 from django.test import TestCase
 from django.urls import reverse
+from django.views.static import serve
 
 from content.models import BlogPost, GalleryImage
 from courses.models import Course
@@ -93,6 +94,16 @@ class PublicPageTests(TestCase):
                 self.assertEqual(GalleryImage.objects.exclude(image="").count(), 5)
                 self.assertEqual(Course.objects.exclude(image="").count(), 12)
                 self.assertEqual(BlogPost.objects.exclude(featured_image="").count(), 4)
+
+    def test_production_media_route_is_configured(self):
+        from config.urls import urlpatterns
+
+        media_routes = [
+            pattern
+            for pattern in urlpatterns
+            if getattr(pattern, "callback", None) == serve
+        ]
+        self.assertTrue(media_routes)
 
 
 class EnsureSuperuserCommandTests(TestCase):
