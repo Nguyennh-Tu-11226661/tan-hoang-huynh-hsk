@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Trung tâm Tiếng Trung Tân Hoàng Huynh HSK Bắc Ninh{% endblock %}
 {% block meta_description %}Trung tâm tiếng Trung Bắc Ninh: lớp HSK sĩ số nhỏ, luyện thi theo lộ trình, học thử và test đầu vào miễn phí tại Tân Hoàng Huynh HSK.{% endblock %}
 {% block content %}
@@ -18,6 +19,11 @@
                     {% endif %}
                     {% if site_contact.zalo_url %}<a class="btn btn-outline-light btn-lg" href="{{ site_contact.zalo_url }}" target="_blank" rel="noopener">Tư vấn qua Zalo</a>{% endif %}
                 </div>
+                <div class="hero-stickers" aria-label="Điểm nổi bật">
+                    <span><b>拼音</b> Sửa phát âm</span>
+                    <span><b>HSK</b> Lộ trình thi</span>
+                    <span><b>小班</b> Lớp ít người</span>
+                </div>
                 <div class="hero-trust">
                     <span><b>8–12</b> học viên/lớp</span>
                     <span><b>5 bước</b> lộ trình rõ ràng</span>
@@ -26,6 +32,7 @@
             </div>
             <div class="col-lg-5">
                 <div class="hero-card">
+                    <div class="hero-card-sticker">Test miễn phí</div>
                     {% if banner.image %}<img class="hero-card-media" src="{{ banner.image.url }}" alt="{{ banner.title }}">{% endif %}
                     <div class="hero-card-top">
                         <span>目标</span>
@@ -76,6 +83,11 @@
             <h2>5 bước chạm mục tiêu tiếng Trung</h2>
             <p>Mỗi học viên có một điểm xuất phát khác nhau, nhưng đều cần một đường đi rõ ràng.</p>
         </div>
+        <div class="study-stickers" aria-label="Ghi chú học tập">
+            <span>Nghe nói từ buổi đầu</span>
+            <span>Chữa lỗi từng người</span>
+            <span>Bám sát mục tiêu HSK</span>
+        </div>
         <div class="roadmap">
             <div class="road-step"><b>01</b><span>测</span><h3>Test đầu vào</h3><p>Kiểm tra nghe, đọc, phát âm và mục tiêu.</p></div>
             <div class="road-step"><b>02</b><span>班</span><h3>Xếp lớp phù hợp</h3><p>Đúng trình độ, khung giờ và nhịp học.</p></div>
@@ -94,6 +106,16 @@
                 <h2>Học thật, tiến bộ thật, dùng được thật</h2>
                 <p class="lead">Chúng tôi không chạy theo số lượng lớp. Mỗi lớp được thiết kế đủ nhỏ để giáo viên biết bạn đang vướng ở đâu.</p>
                 <a class="btn btn-brand" href="{% url 'core:about' %}">Hiểu thêm về trung tâm</a>
+                <div class="learning-snapshots" aria-label="Không khí lớp học">
+                    <figure>
+                        <img src="{% static 'img/demo/lop-giao-tiep-hsk.jpg' %}" alt="Lớp giao tiếp HSK" loading="lazy">
+                        <figcaption>Luyện nói theo tình huống</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="{% static 'img/demo/thi-thu-hsk.jpg' %}" alt="Thi thử HSK định kỳ" loading="lazy">
+                        <figcaption>Thi thử bám chuẩn HSK</figcaption>
+                    </figure>
+                </div>
             </div>
             <div class="col-lg-7">
                 <div class="reason-grid">
