@@ -266,10 +266,45 @@ h3 { font-size: 1.3rem; }
     border-radius: 50%;
     box-shadow: 0 0 0 28px rgba(255,255,255,.05), 0 0 0 56px rgba(255,255,255,.04);
 }
-.course-visual::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 35%, rgba(2,43,87,.6)); }
+.course-visual::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(2,43,87,.08) 5%, rgba(2,43,87,.68)); }
 .course-visual > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.course-visual > span { position: relative; z-index: 1; font-size: .8rem; font-weight: 850; letter-spacing: .1em; }
-.course-visual > strong { position: relative; z-index: 1; font: 5rem/.8 var(--font-decor); opacity: .86; }
+.course-visual > span {
+    position: relative;
+    z-index: 2;
+    align-self: start;
+    padding: 7px 11px;
+    border: 1px solid rgba(255,255,255,.38);
+    border-radius: 999px;
+    background: rgba(255,255,255,.16);
+    font-size: .76rem;
+    font-weight: 850;
+    letter-spacing: .08em;
+    backdrop-filter: blur(6px);
+}
+.course-visual > strong {
+    position: absolute;
+    z-index: 1;
+    right: 8px;
+    bottom: -10px;
+    color: rgba(255,255,255,.22);
+    font: 6.5rem/.75 var(--font-decor);
+    letter-spacing: -.08em;
+    text-shadow: 0 16px 35px rgba(2,43,87,.28);
+    transform: rotate(-7deg);
+}
+.course-visual > em {
+    position: relative;
+    z-index: 2;
+    align-self: end;
+    padding: 9px 13px;
+    border-radius: 10px;
+    background: #fff;
+    color: var(--red);
+    font-style: normal;
+    font-weight: 900;
+    letter-spacing: .06em;
+    box-shadow: 0 12px 28px rgba(2,43,87,.22);
+}
 .course-card:nth-child(2n) .course-visual, .course-item:nth-child(2n) .course-visual { background: linear-gradient(135deg, #003f82, #4bc5f3); }
 .course-card-body { padding: 25px; }
 .course-card h3 { margin: 13px 0 10px; font-size: 1.45rem; }
@@ -571,6 +606,8 @@ textarea.form-control { min-height: 96px; }
     .hero-card { padding: 22px; }
     .hero-card-sticker { top: 12px; right: 12px; }
     .mock-score strong { font-size: 6rem; }
+    .course-visual > strong { font-size: 5.7rem; }
+    .course-visual > em { padding: 8px 11px; font-size: .86rem; }
     .roadmap { grid-template-columns: repeat(2, 1fr); }
     .reason-grid { grid-template-columns: 1fr; }
     .learning-snapshots { grid-template-columns: 1fr 1fr; }
