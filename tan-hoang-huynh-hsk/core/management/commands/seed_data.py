@@ -54,7 +54,7 @@ class Command(BaseCommand):
                 "secondary_hotline": os.getenv(
                     "CENTER_SECONDARY_HOTLINE", "0886056556"
                 ),
-                "email": os.getenv("CENTER_EMAIL", "tuvan@tanhoanghuynhhsk.vn"),
+                "email": os.getenv("CENTER_EMAIL", "tuvan@tanhoanhuynhhsk.com"),
                 "zalo_url": os.getenv(
                     "CENTER_ZALO_URL", "https://zalo.me/0829304304"
                 ),

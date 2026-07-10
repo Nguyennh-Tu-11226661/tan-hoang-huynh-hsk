@@ -248,10 +248,10 @@ Render tự tạo web service, PostgreSQL database, collect static và migrate.
    ```
 
 Website sẽ có URL dạng `https://ten-service.onrender.com/`. Với domain chính
-`tanhoanghuynhhsk.vn`, thêm Custom Domain trong Render, trỏ DNS theo hướng dẫn
+`tanhoanhuynhhsk.com`, thêm Custom Domain trong Render, trỏ DNS theo hướng dẫn
 của Render, rồi dùng:
 
 ```text
-ALLOWED_HOSTS=tanhoanghuynhhsk.vn,www.tanhoanghuynhhsk.vn
-CSRF_TRUSTED_ORIGINS=https://tanhoanghuynhhsk.vn,https://www.tanhoanghuynhhsk.vn
+ALLOWED_HOSTS=tanhoanhuynhhsk.com,www.tanhoanhuynhhsk.com
+CSRF_TRUSTED_ORIGINS=https://tanhoanhuynhhsk.com,https://www.tanhoanhuynhhsk.com
 ```

@@ -218,7 +218,7 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
 EMAIL_USE_TLS = env_bool("EMAIL_USE_TLS", True)
 EMAIL_USE_SSL = env_bool("EMAIL_USE_SSL", False)
 DEFAULT_FROM_EMAIL = os.getenv(
-    "DEFAULT_FROM_EMAIL", "website@tanhoanghuynhhsk.vn"
+    "DEFAULT_FROM_EMAIL", "website@tanhoanhuynhhsk.com"
 )
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 ADMISSION_NOTIFICATION_EMAILS = env_list("ADMISSION_NOTIFICATION_EMAILS")
