@@ -17,6 +17,13 @@ def robots_txt(request):
     )
 
 
+def google_site_verification(request):
+    return HttpResponse(
+        "google-site-verification: google8527b34d53db3d23.html",
+        content_type="text/plain",
+    )
+
+
 class HomeView(TemplateView):
     template_name = "core/home.html"
 

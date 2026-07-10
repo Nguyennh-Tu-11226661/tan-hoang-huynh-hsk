@@ -6,6 +6,7 @@ from .views import (
     FAQView,
     HomeView,
     PrivacyPolicyView,
+    google_site_verification,
     robots_txt,
 )
 
@@ -18,4 +19,9 @@ urlpatterns = [
     path("lien-he/", ContactView.as_view(), name="contact"),
     path("chinh-sach-bao-mat/", PrivacyPolicyView.as_view(), name="privacy"),
     path("robots.txt", robots_txt, name="robots"),
+    path(
+        "google8527b34d53db3d23.html",
+        google_site_verification,
+        name="google_site_verification",
+    ),
 ]
