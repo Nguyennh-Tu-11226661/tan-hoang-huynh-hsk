@@ -10,9 +10,18 @@ from openpyxl.styles import Font, PatternFill
 from .models import ConsultationRequest, TrialLessonBooking
 
 
+FORMULA_PREFIXES = ("=", "+", "-", "@", "\t", "\r")
+
+
+def spreadsheet_safe(value):
+    if isinstance(value, str) and value.startswith(FORMULA_PREFIXES):
+        return "'" + value
+    return value
+
+
 def consultation_rows(queryset):
     for item in queryset.select_related("course"):
-        yield [
+        row = [
             item.full_name,
             item.phone,
             item.email,
@@ -23,6 +32,7 @@ def consultation_rows(queryset):
             timezone.localtime(item.created_at).strftime("%d/%m/%Y %H:%M"),
             item.message,
         ]
+        yield [spreadsheet_safe(value) for value in row]
 
 
 HEADERS = [

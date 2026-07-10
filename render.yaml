@@ -18,6 +18,14 @@ services:
           property: connectionString
       - key: SECURE_SSL_REDIRECT
         value: "True"
+      - key: ALLOWED_HOSTS
+        value: "tanhoanghuynhhsk.vn,www.tanhoanghuynhhsk.vn"
+      - key: CSRF_TRUSTED_ORIGINS
+        value: "https://tanhoanghuynhhsk.vn,https://www.tanhoanghuynhhsk.vn"
+      - key: MEDIA_STORAGE
+        value: "local"
+      - key: ADMIN_2FA_REQUIRED
+        value: "False"
 
 databases:
   - name: tan-hoang-huynh-hsk-db

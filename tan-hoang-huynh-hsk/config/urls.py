@@ -5,9 +5,11 @@ from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path, re_path
 from django.views.static import serve
 
+from config.admin_site import configure_admin_site
 from core.sitemaps import BlogSitemap, CourseSitemap, StaticViewSitemap
 
 
+configure_admin_site()
 admin.site.site_header = "Tân Hoàng Huynh HSK"
 admin.site.site_title = "Quản trị Tân Hoàng Huynh"
 admin.site.index_title = "Quản lý nội dung và tuyển sinh"
@@ -27,9 +29,9 @@ urlpatterns = [
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
 ]
 
-if settings.DEBUG:
+if settings.DEBUG and settings.MEDIA_STORAGE == "local":
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-else:
+elif settings.MEDIA_STORAGE == "local":
     urlpatterns += [
         re_path(
             r"^media/(?P<path>.*)$",

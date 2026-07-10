@@ -1,6 +1,11 @@
+import logging
+
 from django.conf import settings
 from django.core.mail import send_mail
 from django.utils import timezone
+
+
+logger = logging.getLogger(__name__)
 
 
 def _recipients():
@@ -12,13 +17,17 @@ def _send_notification(subject, lines):
     if not recipients:
         return 0
 
-    return send_mail(
-        subject=subject,
-        message="\n".join(lines),
-        from_email=settings.DEFAULT_FROM_EMAIL,
-        recipient_list=recipients,
-        fail_silently=True,
-    )
+    try:
+        return send_mail(
+            subject=subject,
+            message="\n".join(lines),
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=recipients,
+            fail_silently=False,
+        )
+    except Exception:
+        logger.exception("Không gửi được email tuyển sinh: %s", subject)
+        return 0
 
 
 def notify_consultation_request(request):

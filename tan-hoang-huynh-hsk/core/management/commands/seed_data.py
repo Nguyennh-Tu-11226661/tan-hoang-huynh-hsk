@@ -3,7 +3,7 @@ from datetime import timedelta
 
 from django.conf import settings
 from django.core.files import File
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
 
 from content.models import BlogPost, GalleryImage, Testimonial
@@ -29,6 +29,18 @@ class Command(BaseCommand):
             image_field.save(upload_name or source_name, File(source), save=True)
 
     def handle(self, *args, **options):
+        allow_production_seed = os.getenv("ALLOW_PRODUCTION_SEED_DATA", "").lower() in {
+            "1",
+            "true",
+            "yes",
+            "on",
+        }
+        if not settings.DEBUG and not allow_production_seed:
+            raise CommandError(
+                "Không chạy seed_data khi DEBUG=False. "
+                "Nếu thật sự cần, đặt ALLOW_PRODUCTION_SEED_DATA=True."
+            )
+
         today = timezone.localdate()
 
         ContactInfo.objects.update_or_create(

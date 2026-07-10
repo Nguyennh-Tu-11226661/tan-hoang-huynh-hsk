@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
@@ -60,6 +61,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sitemaps",
+    "axes",
+    "django_otp",
+    "django_otp.plugins.otp_totp",
     "core",
     "courses",
     "admissions",
@@ -73,8 +77,10 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django_otp.middleware.OTPMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "axes.middleware.AxesMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -127,6 +133,18 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
+AUTHENTICATION_BACKENDS = [
+    "axes.backends.AxesStandaloneBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+AXES_FAILURE_LIMIT = int(os.getenv("AXES_FAILURE_LIMIT", "5"))
+AXES_COOLOFF_TIME = timedelta(
+    minutes=int(os.getenv("AXES_COOLOFF_MINUTES", "60"))
+)
+AXES_LOCKOUT_PARAMETERS = ["username", "ip_address"]
+AXES_RESET_ON_SUCCESS = True
+ADMIN_2FA_REQUIRED = env_bool("ADMIN_2FA_REQUIRED", False)
+
 LANGUAGE_CODE = "vi"
 TIME_ZONE = "Asia/Ho_Chi_Minh"
 USE_I18N = True
@@ -145,8 +163,36 @@ STORAGES = {
         )
     },
 }
+MEDIA_STORAGE = os.getenv("MEDIA_STORAGE", "local").lower()
 MEDIA_URL = "/media/"
 MEDIA_ROOT = Path(os.getenv("MEDIA_ROOT", BASE_DIR / "media"))
+if MEDIA_STORAGE not in {"local", "s3", "r2"}:
+    raise ImproperlyConfigured("MEDIA_STORAGE chỉ hỗ trợ local, s3 hoặc r2.")
+if MEDIA_STORAGE in {"s3", "r2"}:
+    required_media_vars = [
+        "AWS_STORAGE_BUCKET_NAME",
+        "AWS_ACCESS_KEY_ID",
+        "AWS_SECRET_ACCESS_KEY",
+    ]
+    missing_media_vars = [name for name in required_media_vars if not os.getenv(name)]
+    if missing_media_vars:
+        raise ImproperlyConfigured(
+            "Thiếu biến môi trường lưu media: " + ", ".join(missing_media_vars)
+        )
+    AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
+    AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+    AWS_S3_REGION_NAME = os.getenv("AWS_S3_REGION_NAME", "auto")
+    AWS_S3_ENDPOINT_URL = os.getenv("AWS_S3_ENDPOINT_URL", "")
+    AWS_S3_CUSTOM_DOMAIN = os.getenv("AWS_S3_CUSTOM_DOMAIN", "")
+    AWS_LOCATION = os.getenv("AWS_LOCATION", "media")
+    AWS_DEFAULT_ACL = None
+    AWS_QUERYSTRING_AUTH = env_bool("AWS_QUERYSTRING_AUTH", False)
+    AWS_S3_FILE_OVERWRITE = False
+    AWS_S3_SIGNATURE_VERSION = os.getenv("AWS_S3_SIGNATURE_VERSION", "s3v4")
+    STORAGES["default"] = {"BACKEND": "storages.backends.s3.S3Storage"}
+    if AWS_S3_CUSTOM_DOMAIN:
+        MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN.rstrip('/')}/{AWS_LOCATION}/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 FILE_UPLOAD_PERMISSIONS = 0o644

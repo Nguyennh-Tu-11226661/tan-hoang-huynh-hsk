@@ -3,6 +3,7 @@ from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
+from django.core.management.base import CommandError
 from django.contrib.staticfiles import finders
 from django.test import TestCase
 from django.urls import reverse
@@ -83,7 +84,7 @@ class PublicPageTests(TestCase):
 
     def test_seed_data_creates_media_backed_demo_content(self):
         with tempfile.TemporaryDirectory() as media_root:
-            with self.settings(MEDIA_ROOT=media_root):
+            with self.settings(DEBUG=True, MEDIA_ROOT=media_root):
                 call_command("seed_data", verbosity=0)
 
                 banner = Banner.objects.get(
@@ -94,6 +95,12 @@ class PublicPageTests(TestCase):
                 self.assertEqual(GalleryImage.objects.exclude(image="").count(), 5)
                 self.assertEqual(Course.objects.exclude(image="").count(), 12)
                 self.assertEqual(BlogPost.objects.exclude(featured_image="").count(), 4)
+
+    def test_seed_data_is_blocked_in_production(self):
+        with self.settings(DEBUG=False):
+            with patch.dict("os.environ", {}, clear=True):
+                with self.assertRaises(CommandError):
+                    call_command("seed_data", verbosity=0)
 
     def test_production_media_route_is_configured(self):
         from config.urls import urlpatterns
@@ -141,7 +148,8 @@ class AdminInterfaceTests(TestCase):
             email="admin@example.com",
             password="StrongPassword123!",
         )
-        self.client.login(username="admin", password="StrongPassword123!")
+        user = User.objects.get(username="admin")
+        self.client.force_login(user)
 
         response = self.client.get(reverse("admin:index"))
 

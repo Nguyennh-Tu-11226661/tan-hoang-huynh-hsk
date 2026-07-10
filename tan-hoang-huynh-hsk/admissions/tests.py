@@ -1,6 +1,7 @@
 import time
 from datetime import timedelta
 from io import BytesIO
+from unittest.mock import patch
 
 from django.core import signing
 from django.core import mail
@@ -12,6 +13,7 @@ from openpyxl import load_workbook
 
 from .admin import export_consultations_csv, export_consultations_excel
 from .models import ConsultationRequest, TrialLessonBooking
+from .notifications import notify_consultation_request
 
 
 class AdmissionFormTests(TestCase):
@@ -73,6 +75,23 @@ class AdmissionFormTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(TrialLessonBooking.objects.count(), 0)
 
+    def test_trial_slot_must_be_valid_choice(self):
+        response = self.client.post(
+            reverse("admissions:trial"),
+            {
+                "full_name": "Nguyễn Minh An",
+                "phone": "0988668596",
+                "booking_type": "trial",
+                "preferred_date": (timezone.localdate() + timedelta(days=1)).isoformat(),
+                "preferred_slot": "=bad",
+                "consent": "on",
+                "website": "",
+                "form_started": self.token(),
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(TrialLessonBooking.objects.count(), 0)
+
     @override_settings(
         EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend",
         ADMISSION_NOTIFICATION_EMAILS=["tuvan@example.com"],
@@ -118,6 +137,25 @@ class AdmissionFormTests(TestCase):
         self.assertContains(response, "Vui lòng chờ một phút")
         self.assertEqual(ConsultationRequest.objects.count(), 1)
 
+    @override_settings(
+        DEFAULT_FROM_EMAIL="website@example.com",
+        ADMISSION_NOTIFICATION_EMAILS=["tuvan@example.com"],
+    )
+    @patch("admissions.notifications.send_mail", side_effect=RuntimeError("SMTP down"))
+    def test_email_failure_is_logged(self, mocked_send_mail):
+        request = ConsultationRequest.objects.create(
+            full_name="Nguyễn Minh An",
+            phone="0988668596",
+            email="an@example.com",
+        )
+
+        with self.assertLogs("admissions.notifications", level="ERROR") as logs:
+            result = notify_consultation_request(request)
+
+        self.assertEqual(result, 0)
+        self.assertTrue(mocked_send_mail.called)
+        self.assertIn("Không gửi được email tuyển sinh", logs.output[0])
+
 
 class ConsultationExportTests(TestCase):
     @classmethod
@@ -153,3 +191,24 @@ class ConsultationExportTests(TestCase):
         self.assertEqual(sheet["A2"].value, "Nguyễn Minh An")
         self.assertEqual(sheet["B2"].value, "0988668596")
         self.assertIn("dang-ky-tu-van.xlsx", response["Content-Disposition"])
+
+    def test_exports_escape_spreadsheet_formulas(self):
+        ConsultationRequest.objects.create(
+            full_name='=HYPERLINK("https://example.com")',
+            phone="0988668597",
+            email="formula@example.com",
+            current_level="+cmd",
+            preferred_time="@now",
+            message="-danger",
+        )
+
+        response = export_consultations_csv(None, self.request, self.queryset)
+        text = response.content.decode("utf-8-sig")
+        self.assertIn("'=HYPERLINK", text)
+        self.assertIn("'+cmd", text)
+
+        response = export_consultations_excel(None, self.request, self.queryset)
+        workbook = load_workbook(BytesIO(response.content), read_only=True)
+        sheet = workbook["Đăng ký tư vấn"]
+        exported_names = [sheet[f"A{row}"].value for row in range(2, 4)]
+        self.assertIn("'=HYPERLINK(\"https://example.com\")", exported_names)

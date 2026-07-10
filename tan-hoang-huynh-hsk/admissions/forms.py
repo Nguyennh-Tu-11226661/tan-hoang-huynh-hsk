@@ -16,6 +16,14 @@ from .models import (
 )
 
 
+PREFERRED_SLOT_CHOICES = [
+    ("", "Chọn khung giờ"),
+    ("08:00–10:00", "08:00–10:00"),
+    ("14:00–16:00", "14:00–16:00"),
+    ("18:00–20:00", "18:00–20:00"),
+]
+
+
 class AntiSpamFormMixin(forms.Form):
     website = forms.CharField(
         required=False,
@@ -101,6 +109,11 @@ class TrialLessonBookingForm(AntiSpamFormMixin, forms.ModelForm):
         label=TRIAL_CONSENT_TEXT,
         required=True,
     )
+    preferred_slot = forms.ChoiceField(
+        choices=PREFERRED_SLOT_CHOICES,
+        label="Khung giờ",
+        required=True,
+    )
 
     class Meta:
         model = TrialLessonBooking
@@ -132,14 +145,6 @@ class TrialLessonBookingForm(AntiSpamFormMixin, forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["preferred_slot"].widget = forms.Select(
-            choices=[
-                ("", "Chọn khung giờ"),
-                ("08:00–10:00", "08:00–10:00"),
-                ("14:00–16:00", "14:00–16:00"),
-                ("18:00–20:00", "18:00–20:00"),
-            ]
-        )
         for name, field in self.fields.items():
             if name not in {"consent", "website", "form_started"}:
                 field.widget.attrs["class"] = (
