@@ -156,6 +156,10 @@ class AdminInterfaceTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "admin/css/tan-hoang-admin.css")
         self.assertContains(response, "Quản lý nội dung và tuyển sinh")
+        self.assertContains(response, "Bảo mật đăng nhập")
+        self.assertContains(response, "Xác thực 2 lớp")
+        self.assertContains(response, "Quản lý khóa học và lịch khai giảng")
+        self.assertContains(response, "Thêm/sửa/xóa sẽ ảnh hưởng trang Khóa học")
 
     def test_custom_admin_stylesheet_exists(self):
         self.assertIsNotNone(finders.find("admin/css/tan-hoang-admin.css"))

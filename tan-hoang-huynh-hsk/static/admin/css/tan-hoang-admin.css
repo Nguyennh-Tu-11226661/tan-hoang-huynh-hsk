@@ -192,6 +192,30 @@ div.breadcrumbs {
     text-transform: uppercase;
 }
 
+.admin-app-help,
+.admin-model-help {
+    display: block;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.admin-app-help {
+    max-width: 760px;
+    margin-top: 6px;
+    color: #d9ecff;
+    font-size: .82rem;
+    font-weight: 500;
+    line-height: 1.45;
+}
+
+.admin-model-help {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: .78rem;
+    font-weight: 500;
+    line-height: 1.35;
+}
+
 #content-related .module h2 {
     background: #eaf4ff;
     color: var(--primary-dark);
@@ -242,6 +266,12 @@ div.breadcrumbs {
     width: auto;
     min-width: 0;
     min-height: 50px;
+}
+
+.dashboard .module table th {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
 }
 
 .dashboard .module table th a {
