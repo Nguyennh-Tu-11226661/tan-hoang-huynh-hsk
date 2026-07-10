@@ -5,7 +5,7 @@ from admissions.forms import ConsultationRequestForm
 from content.models import BlogPost, Testimonial
 from courses.models import ClassSchedule, Course
 
-from .models import Banner, FAQ
+from .models import Banner, ContactInfo, FAQ
 
 
 def robots_txt(request):
@@ -52,3 +52,12 @@ class FAQView(TemplateView):
 
 class ContactView(TemplateView):
     template_name = "core/contact.html"
+
+
+class PrivacyPolicyView(TemplateView):
+    template_name = "core/privacy_policy.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["contact"] = ContactInfo.objects.filter(is_active=True).first()
+        return context

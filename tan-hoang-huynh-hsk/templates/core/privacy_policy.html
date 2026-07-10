@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Chính sách bảo mật thông tin | Tân Hoàng Huynh HSK{% endblock %}
+{% block meta_description %}Chính sách thu thập, sử dụng và bảo vệ thông tin cá nhân khi đăng ký tư vấn, học thử hoặc test đầu vào tại Tân Hoàng Huynh HSK.{% endblock %}
+{% block content %}
+{% include "includes/page_header.html" with breadcrumb="Chính sách bảo mật" eyebrow="BẢO VỆ THÔNG TIN" heading="Chính sách bảo mật thông tin" intro="Trung tâm chỉ thu thập những thông tin cần thiết để tư vấn, xác nhận lịch học và chăm sóc học viên." %}
+
+<section class="section-space">
+    <div class="container">
+        <article class="prose privacy-policy mx-auto">
+            <p><strong>Phiên bản áp dụng:</strong> privacy-2026-07-10.</p>
+            <p>Chính sách này áp dụng cho các biểu mẫu đăng ký tư vấn, học thử, test đầu vào và các kênh liên hệ trực tuyến của Trung tâm Tiếng Trung Tân Hoàng Huynh HSK.</p>
+
+            <h2>1. Đơn vị xử lý thông tin</h2>
+            <p>Đơn vị tiếp nhận và xử lý thông tin là Trung tâm Tiếng Trung Tân Hoàng Huynh HSK.</p>
+            {% if contact %}
+            <p>Địa chỉ: {{ contact.address }}.<br>Hotline: {{ contact.hotline_display }}{% if contact.secondary_hotline %} / {{ contact.secondary_hotline_display }}{% endif %}.<br>Email: <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>.</p>
+            {% endif %}
+
+            <h2>2. Thông tin được thu thập</h2>
+            <p>Khi bạn gửi biểu mẫu, trung tâm có thể thu thập họ tên, số điện thoại, email, khóa học quan tâm, trình độ hiện tại, mục tiêu học tập, ngày giờ muốn học thử/test đầu vào, lời nhắn và thời điểm bạn đồng ý gửi thông tin.</p>
+
+            <h2>3. Mục đích sử dụng</h2>
+            <p>Thông tin được dùng để liên hệ tư vấn lộ trình, xác nhận lịch học thử hoặc test đầu vào, chăm sóc học viên, cập nhật trạng thái xử lý yêu cầu và cải thiện chất lượng dịch vụ đào tạo.</p>
+
+            <h2>4. Người được tiếp cận thông tin</h2>
+            <p>Thông tin chỉ được cấp cho nhân sự có nhiệm vụ tuyển sinh, tư vấn, chăm sóc học viên, quản trị hệ thống hoặc xử lý yêu cầu dữ liệu. Trung tâm không bán thông tin cá nhân cho bên thứ ba.</p>
+
+            <h2>5. Thời gian lưu trữ</h2>
+            <p>Dữ liệu đăng ký được lưu trong hệ thống quản trị để phục vụ tư vấn và chăm sóc học viên. Khi không còn cần thiết cho mục đích trên, hoặc khi bạn yêu cầu xóa hợp lệ, trung tâm sẽ rà soát và xóa hoặc ẩn dữ liệu theo quy trình nội bộ.</p>
+
+            <h2>6. Quyền chỉnh sửa hoặc xóa dữ liệu</h2>
+            <p>Bạn có thể yêu cầu kiểm tra, sửa hoặc xóa thông tin đã gửi bằng cách liên hệ hotline hoặc email của trung tâm. Khi tiếp nhận yêu cầu, trung tâm có thể cần xác minh số điện thoại hoặc email để tránh người khác yêu cầu thay bạn.</p>
+
+            <h2>7. Dữ liệu trẻ em và hình ảnh học viên</h2>
+            <p>Với học viên nhỏ tuổi hoặc khóa YCT, việc đăng ký cần có sự đồng ý của phụ huynh hoặc người giám hộ. Hình ảnh học viên chỉ nên được sử dụng cho truyền thông khi đã có sự đồng ý phù hợp từ học viên, phụ huynh hoặc người giám hộ.</p>
+
+            <h2>8. Cookie và công cụ theo dõi</h2>
+            <p>Website có thể sử dụng cookie phiên đăng nhập, cookie bảo mật biểu mẫu và các công cụ đo lường cơ bản nếu được cấu hình. Các cookie này giúp website hoạt động ổn định, hạn chế spam và cải thiện trải nghiệm người dùng.</p>
+
+            <h2>9. An toàn dữ liệu</h2>
+            <p>Trung tâm áp dụng các biện pháp phù hợp như phân quyền quản trị, bảo vệ biểu mẫu, HTTPS, sao lưu và hạn chế quyền truy cập để giảm rủi ro mất mát hoặc truy cập trái phép.</p>
+
+            <h2>10. Khi xảy ra sự cố</h2>
+            <p>Nếu phát hiện rò rỉ hoặc truy cập dữ liệu trái phép, trung tâm sẽ kiểm tra phạm vi ảnh hưởng, khóa hoặc thay đổi thông tin truy cập liên quan, khôi phục dữ liệu nếu cần và liên hệ những người bị ảnh hưởng trong phạm vi phù hợp.</p>
+
+            <h2>11. Cập nhật chính sách</h2>
+            <p>Chính sách có thể được cập nhật khi website, quy trình tuyển sinh hoặc yêu cầu vận hành thay đổi. Phiên bản mới sẽ được đăng tại trang này.</p>
+        </article>
+    </div>
+</section>
+{% endblock %}

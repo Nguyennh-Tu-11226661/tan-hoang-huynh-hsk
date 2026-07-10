@@ -7,7 +7,13 @@ from django.utils import timezone
 
 from courses.models import Course
 
-from .models import ConsultationRequest, TrialLessonBooking
+from .models import (
+    CONSULTATION_CONSENT_TEXT,
+    PRIVACY_CONSENT_VERSION,
+    TRIAL_CONSENT_TEXT,
+    ConsultationRequest,
+    TrialLessonBooking,
+)
 
 
 class AntiSpamFormMixin(forms.Form):
@@ -40,7 +46,7 @@ class AntiSpamFormMixin(forms.Form):
 
 class ConsultationRequestForm(AntiSpamFormMixin, forms.ModelForm):
     consent = forms.BooleanField(
-        label="Tôi đồng ý để trung tâm liên hệ tư vấn về lộ trình học.",
+        label=CONSULTATION_CONSENT_TEXT,
         required=True,
     )
 
@@ -78,10 +84,21 @@ class ConsultationRequestForm(AntiSpamFormMixin, forms.ModelForm):
                 field.widget.attrs["class"] = "form-control"
         self.fields["course"].widget.attrs["class"] = "form-select"
 
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        if self.cleaned_data.get("consent"):
+            instance.consent_given_at = timezone.now()
+            instance.consent_version = PRIVACY_CONSENT_VERSION
+            instance.consent_text = CONSULTATION_CONSENT_TEXT
+        if commit:
+            instance.save()
+            self.save_m2m()
+        return instance
+
 
 class TrialLessonBookingForm(AntiSpamFormMixin, forms.ModelForm):
     consent = forms.BooleanField(
-        label="Tôi đồng ý để trung tâm liên hệ xác nhận lịch.",
+        label=TRIAL_CONSENT_TEXT,
         required=True,
     )
 
@@ -136,3 +153,14 @@ class TrialLessonBookingForm(AntiSpamFormMixin, forms.ModelForm):
         if value < timezone.localdate():
             raise ValidationError("Vui lòng chọn ngày từ hôm nay trở đi.")
         return value
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        if self.cleaned_data.get("consent"):
+            instance.consent_given_at = timezone.now()
+            instance.consent_version = PRIVACY_CONSENT_VERSION
+            instance.consent_text = TRIAL_CONSENT_TEXT
+        if commit:
+            instance.save()
+            self.save_m2m()
+        return instance

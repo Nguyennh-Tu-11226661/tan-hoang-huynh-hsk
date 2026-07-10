@@ -22,6 +22,7 @@ class StaticViewSitemap(Sitemap):
             "content:blog_list",
             "core:faq",
             "core:contact",
+            "core:privacy",
         ]
 
     def location(self, item):

@@ -178,6 +178,7 @@
                 <div><label for="{{ consultation_form.phone.id_for_label }}">Số điện thoại</label>{{ consultation_form.phone }}</div>
                 <div><label for="{{ consultation_form.course.id_for_label }}">Khóa học quan tâm</label>{{ consultation_form.course }}</div>
                 <div class="form-check">{{ consultation_form.consent }} <label for="{{ consultation_form.consent.id_for_label }}">Tôi đồng ý để trung tâm liên hệ tư vấn.</label></div>
+                <small>Thông tin được xử lý theo <a href="{% url 'core:privacy' %}" target="_blank" rel="noopener">Chính sách bảo mật</a>.</small>
                 <button class="btn btn-warning w-100" type="submit">Nhận tư vấn miễn phí</button>
                 <small>Thông tin của bạn chỉ được dùng để tư vấn khóa học.</small>
             </form>

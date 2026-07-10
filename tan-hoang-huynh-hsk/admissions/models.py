@@ -4,6 +4,17 @@ from core.models import phone_validator
 from courses.models import Course
 
 
+PRIVACY_CONSENT_VERSION = "privacy-2026-07-10"
+CONSULTATION_CONSENT_TEXT = (
+    "Tôi đồng ý để Trung tâm Tiếng Trung Tân Hoàng Huynh HSK thu thập và sử dụng "
+    "thông tin đã cung cấp để liên hệ tư vấn lộ trình học."
+)
+TRIAL_CONSENT_TEXT = (
+    "Tôi đồng ý để Trung tâm Tiếng Trung Tân Hoàng Huynh HSK thu thập và sử dụng "
+    "thông tin đã cung cấp để liên hệ xác nhận lịch học thử hoặc test đầu vào."
+)
+
+
 class ConsultationRequest(models.Model):
     class Status(models.TextChoices):
         NEW = "new", "Mới"
@@ -28,6 +39,13 @@ class ConsultationRequest(models.Model):
         "Trạng thái", max_length=20, choices=Status.choices, default=Status.NEW
     )
     admin_note = models.TextField("Ghi chú nội bộ", blank=True)
+    consent_given_at = models.DateTimeField(
+        "Thời điểm đồng ý xử lý dữ liệu", null=True, blank=True
+    )
+    consent_version = models.CharField(
+        "Phiên bản đồng ý", max_length=40, default=PRIVACY_CONSENT_VERSION
+    )
+    consent_text = models.TextField("Nội dung đồng ý", blank=True)
     created_at = models.DateTimeField("Ngày đăng ký", auto_now_add=True)
 
     class Meta:
@@ -64,6 +82,13 @@ class TrialLessonBooking(models.Model):
         "Trạng thái", max_length=20, choices=Status.choices, default=Status.NEW
     )
     admin_note = models.TextField("Ghi chú nội bộ", blank=True)
+    consent_given_at = models.DateTimeField(
+        "Thời điểm đồng ý xử lý dữ liệu", null=True, blank=True
+    )
+    consent_version = models.CharField(
+        "Phiên bản đồng ý", max_length=40, default=PRIVACY_CONSENT_VERSION
+    )
+    consent_text = models.TextField("Nội dung đồng ý", blank=True)
     created_at = models.DateTimeField("Ngày đặt lịch", auto_now_add=True)
 
     class Meta:

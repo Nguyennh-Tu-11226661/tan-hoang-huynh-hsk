@@ -79,7 +79,12 @@ class ConsultationRequestAdmin(admin.ModelAdmin):
     list_filter = ("status", "course", "created_at")
     search_fields = ("full_name", "phone", "email")
     list_editable = ("status",)
-    readonly_fields = ("created_at",)
+    readonly_fields = (
+        "created_at",
+        "consent_given_at",
+        "consent_version",
+        "consent_text",
+    )
     actions = [export_consultations_csv, export_consultations_excel]
 
 
@@ -96,4 +101,9 @@ class TrialLessonBookingAdmin(admin.ModelAdmin):
     list_filter = ("booking_type", "status", "preferred_date")
     search_fields = ("full_name", "phone", "email")
     list_editable = ("status",)
-    readonly_fields = ("created_at",)
+    readonly_fields = (
+        "created_at",
+        "consent_given_at",
+        "consent_version",
+        "consent_text",
+    )
