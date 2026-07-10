@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.conf import settings
 from django.views.generic import TemplateView
 
 from admissions.forms import ConsultationRequestForm
@@ -9,7 +10,7 @@ from .models import Banner, ContactInfo, FAQ
 
 
 def robots_txt(request):
-    sitemap_url = request.build_absolute_uri("/sitemap.xml")
+    sitemap_url = f"{settings.SITE_URL.rstrip('/')}/sitemap.xml"
     return HttpResponse(
         f"User-agent: *\nAllow: /\nDisallow: /quan-tri/\nSitemap: {sitemap_url}\n",
         content_type="text/plain",

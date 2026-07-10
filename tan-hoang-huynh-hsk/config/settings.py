@@ -52,6 +52,7 @@ append_unique(ALLOWED_HOSTS, RENDER_EXTERNAL_HOSTNAME)
 CSRF_TRUSTED_ORIGINS = env_list("CSRF_TRUSTED_ORIGINS")
 if RENDER_EXTERNAL_HOSTNAME:
     append_unique(CSRF_TRUSTED_ORIGINS, f"https://{RENDER_EXTERNAL_HOSTNAME}")
+SITE_URL = os.getenv("SITE_URL", "https://tanhoanghuynhhsk.com").rstrip("/")
 
 INSTALLED_APPS = [
     "django.contrib.admin",

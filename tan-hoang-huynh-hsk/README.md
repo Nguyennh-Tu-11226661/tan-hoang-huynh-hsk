@@ -254,4 +254,5 @@ của Render, rồi dùng:
 ```text
 ALLOWED_HOSTS=tanhoanghuynhhsk.com,www.tanhoanghuynhhsk.com
 CSRF_TRUSTED_ORIGINS=https://tanhoanghuynhhsk.com,https://www.tanhoanghuynhhsk.com
+SITE_URL=https://tanhoanghuynhhsk.com
 ```

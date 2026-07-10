@@ -9,9 +9,30 @@
     <meta name="robots" content="index, follow">
     <meta property="og:locale" content="vi_VN">
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Tân Hoàng Huynh HSK">
     <meta property="og:title" content="{% block og_title %}Tân Hoàng Huynh HSK Bắc Ninh{% endblock %}">
-    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    <meta property="og:description" content="{% block og_description %}Trung tâm tiếng Trung Tân Hoàng Huynh HSK tại Bắc Ninh, luyện thi HSK và giao tiếp theo lộ trình rõ ràng.{% endblock %}">
+    <meta property="og:url" content="{{ canonical_url }}">
+    <link rel="canonical" href="{{ canonical_url }}">
     <link rel="icon" href="{% static 'img/official-logo-mark.png' %}" type="image/png">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": ["EducationalOrganization", "LocalBusiness"],
+        "name": "Trung tâm Tiếng Trung Tân Hoàng Huynh HSK",
+        "alternateName": ["Tân Hoàng Huynh", "Tan Hoang Huynh HSK"],
+        "url": "{{ site_url }}",
+        "logo": "{{ site_url }}{% static 'img/official-logo-mark.png' %}",
+        "description": "Trung tâm tiếng Trung tại Bắc Ninh, đào tạo giao tiếp, HSK và YCT theo lộ trình rõ ràng.",
+        {% if site_contact %}
+        "telephone": "{{ site_contact.hotline_display|escapejs }}",
+        "email": "{{ site_contact.email|escapejs }}",
+        "address": "{{ site_contact.address|escapejs }}",
+        "openingHours": "{{ site_contact.working_hours|escapejs }}",
+        {% endif %}
+        "areaServed": "Bắc Ninh, Việt Nam"
+    }
+    </script>
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/site.css' %}">
