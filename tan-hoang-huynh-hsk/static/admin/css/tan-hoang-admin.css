@@ -192,6 +192,13 @@ div.breadcrumbs {
     text-transform: uppercase;
 }
 
+.dashboard .module caption {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+}
+
 .admin-app-help,
 .admin-model-help {
     display: block;
