@@ -108,16 +108,16 @@
 - [ ] Them domain, vi du:
 
   ```text
-  tanhoanghuynhhsk.vn
-  www.tanhoanghuynhhsk.vn
+  tanhoanghuynhhsk.com
+  www.tanhoanghuynhhsk.com
   ```
 
 - [ ] Cap nhat DNS theo huong dan Render.
 - [ ] Neu can, them env vars:
 
   ```text
-  ALLOWED_HOSTS=tanhoanghuynhhsk.vn,www.tanhoanghuynhhsk.vn
-  CSRF_TRUSTED_ORIGINS=https://tanhoanghuynhhsk.vn,https://www.tanhoanghuynhhsk.vn
+  ALLOWED_HOSTS=tanhoanghuynhhsk.com,www.tanhoanghuynhhsk.com
+  CSRF_TRUSTED_ORIGINS=https://tanhoanghuynhhsk.com,https://www.tanhoanghuynhhsk.com
   ```
 
 ## 7. Luu y van hanh

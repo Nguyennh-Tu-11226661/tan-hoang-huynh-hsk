@@ -19,9 +19,9 @@ services:
       - key: SECURE_SSL_REDIRECT
         value: "True"
       - key: ALLOWED_HOSTS
-        value: "tanhoanhuynhhsk.com,www.tanhoanhuynhhsk.com"
+        value: "tanhoanghuynhhsk.com,www.tanhoanghuynhhsk.com"
       - key: CSRF_TRUSTED_ORIGINS
-        value: "https://tanhoanhuynhhsk.com,https://www.tanhoanhuynhhsk.com"
+        value: "https://tanhoanghuynhhsk.com,https://www.tanhoanghuynhhsk.com"
       - key: MEDIA_STORAGE
         value: "local"
       - key: ADMIN_2FA_REQUIRED
