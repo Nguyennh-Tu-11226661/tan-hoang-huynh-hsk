@@ -6,12 +6,12 @@ from courses.models import Course
 
 PRIVACY_CONSENT_VERSION = "privacy-2026-07-10"
 CONSULTATION_CONSENT_TEXT = (
-    "Tôi đồng ý để Trung tâm Tiếng Trung Tân Hoàng Huynh HSK thu thập và sử dụng "
+    "Tôi đồng ý để Trung tâm tiếng Trung Tân Hoàng Huynh HSK thu thập và sử dụng "
     "thông tin đã cung cấp để liên hệ tư vấn lộ trình học."
 )
 TRIAL_CONSENT_TEXT = (
-    "Tôi đồng ý để Trung tâm Tiếng Trung Tân Hoàng Huynh HSK thu thập và sử dụng "
-    "thông tin đã cung cấp để liên hệ xác nhận lịch học thử hoặc test đầu vào."
+    "Tôi đồng ý để Trung tâm tiếng Trung Tân Hoàng Huynh HSK thu thập và sử dụng "
+    "thông tin đã cung cấp để liên hệ xác nhận lịch học thử hoặc kiểm tra đầu vào."
 )
 
 
@@ -60,7 +60,7 @@ class ConsultationRequest(models.Model):
 class TrialLessonBooking(models.Model):
     class BookingType(models.TextChoices):
         TRIAL = "trial", "Học thử"
-        PLACEMENT = "placement", "Test đầu vào"
+        PLACEMENT = "placement", "Kiểm tra đầu vào"
 
     class Status(models.TextChoices):
         NEW = "new", "Chờ xác nhận"
@@ -93,8 +93,8 @@ class TrialLessonBooking(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
-        verbose_name = "Lịch học thử / test"
-        verbose_name_plural = "Lịch học thử / test"
+        verbose_name = "Lịch học thử / kiểm tra đầu vào"
+        verbose_name_plural = "Lịch học thử / kiểm tra đầu vào"
 
     def __str__(self):
         return f"{self.full_name} – {self.get_booking_type_display()}"

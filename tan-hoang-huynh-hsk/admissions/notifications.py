@@ -56,9 +56,9 @@ def notify_trial_booking(booking):
     created_at = timezone.localtime(booking.created_at).strftime("%d/%m/%Y %H:%M")
     preferred_date = booking.preferred_date.strftime("%d/%m/%Y")
     return _send_notification(
-        "[Tân Hoàng Huynh HSK] Đặt lịch học thử/test mới",
+        "[Tân Hoàng Huynh HSK] Đặt lịch học thử/kiểm tra mới",
         [
-            "Có học viên vừa đặt lịch học thử hoặc test đầu vào trên website.",
+            "Có học viên vừa đặt lịch học thử hoặc kiểm tra đầu vào trên website.",
             "",
             f"Họ tên: {booking.full_name}",
             f"Số điện thoại: {booking.phone}",

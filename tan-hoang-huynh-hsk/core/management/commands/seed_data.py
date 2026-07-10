@@ -44,7 +44,7 @@ class Command(BaseCommand):
         today = timezone.localdate()
 
         ContactInfo.objects.update_or_create(
-            center_name="Trung tâm Tiếng Trung Tân Hoàng Huynh HSK",
+            center_name="Trung tâm tiếng Trung Tân Hoàng Huynh HSK",
             defaults={
                 "address": os.getenv(
                     "CENTER_ADDRESS",
@@ -96,8 +96,8 @@ class Command(BaseCommand):
             {
                 "title": "Tiếng Trung nhập môn cho người mới",
                 "level": "Người mới",
-                "short_description": "Giáo trình Tiếng Việt 123 Q1 cho người mới bắt đầu.",
-                "description": "Lộ trình trình độ A theo giáo trình Tiếng Việt 123 Q1, tập trung giới thiệu bản thân, phân biệt bảng chữ cái, đếm số, mua sắm, hỏi đường, thời tiết, thuê nhà và giao tiếp khách sạn.",
+                "short_description": "Giáo trình Tiếng Trung 123 Q1 cho người mới bắt đầu.",
+                "description": "Lộ trình trình độ A theo giáo trình Tiếng Trung 123 Q1, tập trung giới thiệu bản thân, phân biệt bảng chữ cái, đếm số, mua sắm, hỏi đường, thời tiết, thuê nhà và giao tiếp khách sạn.",
                 "duration": "40 buổi",
                 "sessions": 40,
                 "class_size": "8–12 học viên",
@@ -156,8 +156,8 @@ class Command(BaseCommand):
             {
                 "title": "Tiếng Trung 123 - Trình độ B",
                 "level": "Người mới",
-                "short_description": "Giáo trình Tiếng Việt 123 Q2, học tiếp hội thoại và chủ đề đời sống.",
-                "description": "Lộ trình trình độ B theo giáo trình Tiếng Việt 123 Q2, tập trung hội thoại về mua sắm, ẩm thực, giải trí, sức khỏe, học tập, nghề nghiệp, dịch vụ và an ninh trật tự.",
+                "short_description": "Giáo trình Tiếng Trung 123 Q2, học tiếp hội thoại và chủ đề đời sống.",
+                "description": "Lộ trình trình độ B theo giáo trình Tiếng Trung 123 Q2, tập trung hội thoại về mua sắm, ẩm thực, giải trí, sức khỏe, học tập, nghề nghiệp, dịch vụ và an ninh trật tự.",
                 "duration": "30 buổi",
                 "sessions": 30,
                 "class_size": "8–12 học viên",
@@ -207,7 +207,7 @@ class Command(BaseCommand):
                 "sessions": 36,
                 "class_size": "8–12 học viên",
                 "tuition": 7200000,
-                "target_students": "Học viên đã hoàn thành HSK 2 hoặc đạt bài test đầu vào tương đương.\nNgười cần HSK 3 cho học tập, việc làm hoặc chuẩn bị du học.",
+                "target_students": "Học viên đã hoàn thành HSK 2 hoặc đạt bài kiểm tra đầu vào tương đương.\nNgười cần HSK 3 cho học tập, việc làm hoặc chuẩn bị du học.",
                 "outcomes": "Sử dụng khoảng 1.000 từ trong chủ đề quen thuộc\nNghe bắt ý chính và thông tin chi tiết\nĐọc hiểu đoạn văn có liên kết\nHoàn thành đề HSK 3 đúng thời gian",
                 "syllabus": "Hệ thống lại nền HSK 2 và lấp lỗ hổng\nPhát triển từ vựng, ngữ pháp theo 12 chủ đề\nLuyện nghe đọc theo dạng câu hỏi\nBa vòng luyện đề và thi thử cuối khóa",
                 "is_featured": True,
@@ -387,10 +387,10 @@ class Command(BaseCommand):
 
         faq_data = [
             ("Người chưa biết gì có thể học được không?", "Có. Khóa nhập môn bắt đầu từ pinyin, khẩu hình và bốn thanh điệu. Bạn sẽ được sửa phát âm trực tiếp trước khi chuyển sang từ vựng và chữ Hán."),
-            ("Trung tâm xếp lớp như thế nào?", "Học viên được trao đổi mục tiêu và làm bài test ngắn. Kết quả giúp trung tâm đề xuất cấp độ, lịch học và nhịp học phù hợp; không chỉ dựa trên khóa đã từng học."),
+            ("Trung tâm xếp lớp như thế nào?", "Học viên được trao đổi mục tiêu và làm bài kiểm tra ngắn. Kết quả giúp trung tâm đề xuất cấp độ, lịch học và nhịp học phù hợp; không chỉ dựa trên khóa đã từng học."),
             ("Một lớp có bao nhiêu học viên?", "Phần lớn lớp có 8–12 học viên; lớp HSK 4–5 chuyên sâu có 6–10 học viên. Sĩ số nhỏ giúp giáo viên theo dõi phát âm và bài tập của từng người."),
-            ("Có lớp dành cho người đi làm không?", "Có. Trung tâm có lớp tối trong tuần, lớp cuối tuần và một số chương trình học linh hoạt online. Lịch cụ thể được cập nhật tại trang Lịch khai giảng."),
-            ("Có được học thử trước khi đăng ký không?", "Có. Bạn có thể đăng ký một buổi học thử hoặc test đầu vào miễn phí. Trung tâm sẽ gọi lại xác nhận khung giờ phù hợp."),
+            ("Có lớp dành cho người đi làm không?", "Có. Trung tâm có lớp tối trong tuần, lớp cuối tuần và một số chương trình học trực tuyến linh hoạt. Lịch cụ thể được cập nhật tại trang Lịch khai giảng."),
+            ("Có được học thử trước khi đăng ký không?", "Có. Bạn có thể đăng ký một buổi học thử hoặc kiểm tra đầu vào miễn phí. Trung tâm sẽ gọi lại xác nhận khung giờ phù hợp."),
             ("Học phí đã bao gồm tài liệu chưa?", "Học phí công bố là học phí trọn khóa. Tư vấn viên sẽ nói rõ tài liệu, chính sách bảo lưu và ưu đãi đang áp dụng trước khi bạn đăng ký."),
             ("Trung tâm có cam kết đầu ra HSK không?", "Mỗi khóa có chuẩn đầu ra và mốc thi thử rõ ràng. Kết quả phụ thuộc cả thời lượng học và mức độ hoàn thành bài tập; trung tâm cam kết theo sát, đánh giá minh bạch và hỗ trợ bù kiến thức."),
         ]
@@ -404,7 +404,7 @@ class Command(BaseCommand):
             (
                 "Học tiếng Trung cho người mới: 30 ngày đầu nên làm gì?",
                 "Một kế hoạch thực tế để xây nền phát âm, từ vựng và thói quen học tiếng Trung mà không bị quá tải.",
-                "Ba mươi ngày đầu không phải lúc để cố nhớ thật nhiều chữ Hán. Đây là giai đoạn tạo nền phát âm và nhịp học ổn định.\nTuần đầu tiên, hãy dành phần lớn thời gian cho thanh mẫu, vận mẫu và bốn thanh điệu. Tự ghi âm câu ngắn rồi nghe lại. Một lỗi phát âm được sửa sớm sẽ tiết kiệm rất nhiều thời gian về sau.\nTừ tuần thứ hai, bạn có thể học từ theo cụm và đặt vào câu. Thay vì chỉ nhớ 认识 là “quen biết”, hãy tập cả câu 很高兴认识你. Não sẽ ghi nhớ tốt hơn khi từ có ngữ cảnh.\nTrong hai tuần cuối, duy trì mỗi ngày 20 phút nghe, 15 phút ôn từ và 10 phút đọc thành tiếng. Đừng tăng thời lượng quá nhanh. Một lịch ngắn nhưng đều luôn tốt hơn ba giờ học dồn vào cuối tuần.\nNếu không chắc phát âm của mình đúng hay chưa, một buổi test với giáo viên sẽ giúp bạn nhận ra điểm cần sửa trước khi đi xa hơn.",
+                "Ba mươi ngày đầu không phải lúc để cố nhớ thật nhiều chữ Hán. Đây là giai đoạn tạo nền phát âm và nhịp học ổn định.\nTuần đầu tiên, hãy dành phần lớn thời gian cho thanh mẫu, vận mẫu và bốn thanh điệu. Tự ghi âm câu ngắn rồi nghe lại. Một lỗi phát âm được sửa sớm sẽ tiết kiệm rất nhiều thời gian về sau.\nTừ tuần thứ hai, bạn có thể học từ theo cụm và đặt vào câu. Thay vì chỉ nhớ 认识 là “quen biết”, hãy tập cả câu 很高兴认识你. Não sẽ ghi nhớ tốt hơn khi từ có ngữ cảnh.\nTrong hai tuần cuối, duy trì mỗi ngày 20 phút nghe, 15 phút ôn từ và 10 phút đọc thành tiếng. Đừng tăng thời lượng quá nhanh. Một lịch ngắn nhưng đều luôn tốt hơn ba giờ học dồn vào cuối tuần.\nNếu không chắc phát âm của mình đúng hay chưa, một buổi kiểm tra với giáo viên sẽ giúp bạn nhận ra điểm cần sửa trước khi đi xa hơn.",
                 "Lộ trình học tiếng Trung 30 ngày đầu cho người mới: phát âm, từ vựng theo cụm và cách duy trì thói quen hiệu quả.",
             ),
             (

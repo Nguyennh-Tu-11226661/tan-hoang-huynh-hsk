@@ -45,7 +45,7 @@ class BlogPost(models.Model):
 
 class Testimonial(models.Model):
     student_name = models.CharField("Tên học viên", max_length=120)
-    course_name = models.CharField("Khóa học / thành tích", max_length=180)
+    course_name = models.CharField("Khóa học / kết quả", max_length=180)
     content = models.TextField("Chia sẻ")
     score = models.CharField("Điểm HSK", max_length=80, blank=True)
     avatar = models.ImageField("Ảnh học viên", upload_to="testimonials/", blank=True)
@@ -56,8 +56,8 @@ class Testimonial(models.Model):
 
     class Meta:
         ordering = ["order", "-id"]
-        verbose_name = "Feedback học viên"
-        verbose_name_plural = "Feedback học viên"
+        verbose_name = "Cảm nhận học viên"
+        verbose_name_plural = "Cảm nhận học viên"
 
     def __str__(self):
         return self.student_name

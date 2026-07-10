@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Chính sách bảo mật thông tin | Tân Hoàng Huynh HSK{% endblock %}
-{% block meta_description %}Chính sách thu thập, sử dụng và bảo vệ thông tin cá nhân khi đăng ký tư vấn, học thử hoặc test đầu vào tại Tân Hoàng Huynh HSK.{% endblock %}
+{% block meta_description %}Chính sách thu thập, sử dụng và bảo vệ thông tin cá nhân khi đăng ký tư vấn, học thử hoặc kiểm tra đầu vào tại Tân Hoàng Huynh HSK.{% endblock %}
 {% block content %}
 {% include "includes/page_header.html" with breadcrumb="Chính sách bảo mật" eyebrow="BẢO VỆ THÔNG TIN" heading="Chính sách bảo mật thông tin" intro="Trung tâm chỉ thu thập những thông tin cần thiết để tư vấn, xác nhận lịch học và chăm sóc học viên." %}
 
@@ -8,19 +8,19 @@
     <div class="container">
         <article class="prose privacy-policy mx-auto">
             <p><strong>Phiên bản áp dụng:</strong> privacy-2026-07-10.</p>
-            <p>Chính sách này áp dụng cho các biểu mẫu đăng ký tư vấn, học thử, test đầu vào và các kênh liên hệ trực tuyến của Trung tâm Tiếng Trung Tân Hoàng Huynh HSK.</p>
+            <p>Chính sách này áp dụng cho các biểu mẫu đăng ký tư vấn, học thử, kiểm tra đầu vào và các kênh liên hệ trực tuyến của Trung tâm tiếng Trung Tân Hoàng Huynh HSK.</p>
 
             <h2>1. Đơn vị xử lý thông tin</h2>
-            <p>Đơn vị tiếp nhận và xử lý thông tin là Trung tâm Tiếng Trung Tân Hoàng Huynh HSK.</p>
+            <p>Đơn vị tiếp nhận và xử lý thông tin là Trung tâm tiếng Trung Tân Hoàng Huynh HSK.</p>
             {% if contact %}
             <p>Địa chỉ: {{ contact.address }}.<br>Hotline: {{ contact.hotline_display }}{% if contact.secondary_hotline %} / {{ contact.secondary_hotline_display }}{% endif %}.<br>Email: <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>.</p>
             {% endif %}
 
             <h2>2. Thông tin được thu thập</h2>
-            <p>Khi bạn gửi biểu mẫu, trung tâm có thể thu thập họ tên, số điện thoại, email, khóa học quan tâm, trình độ hiện tại, mục tiêu học tập, ngày giờ muốn học thử/test đầu vào, lời nhắn và thời điểm bạn đồng ý gửi thông tin.</p>
+            <p>Khi bạn gửi biểu mẫu, trung tâm có thể thu thập họ tên, số điện thoại, email, khóa học quan tâm, trình độ hiện tại, mục tiêu học tập, ngày giờ muốn học thử hoặc kiểm tra đầu vào, lời nhắn và thời điểm bạn đồng ý gửi thông tin.</p>
 
             <h2>3. Mục đích sử dụng</h2>
-            <p>Thông tin được dùng để liên hệ tư vấn lộ trình, xác nhận lịch học thử hoặc test đầu vào, chăm sóc học viên, cập nhật trạng thái xử lý yêu cầu và cải thiện chất lượng dịch vụ đào tạo.</p>
+            <p>Thông tin được dùng để liên hệ tư vấn lộ trình, xác nhận lịch học thử hoặc kiểm tra đầu vào, chăm sóc học viên, cập nhật trạng thái xử lý yêu cầu và cải thiện chất lượng dịch vụ đào tạo.</p>
 
             <h2>4. Người được tiếp cận thông tin</h2>
             <p>Thông tin chỉ được cấp cho nhân sự có nhiệm vụ tuyển sinh, tư vấn, chăm sóc học viên, quản trị hệ thống hoặc xử lý yêu cầu dữ liệu. Trung tâm không bán thông tin cá nhân cho bên thứ ba.</p>

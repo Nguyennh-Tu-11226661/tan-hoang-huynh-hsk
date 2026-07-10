@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Trung tâm Tiếng Trung Tân Hoàng Huynh HSK Bắc Ninh{% endblock %}
-{% block meta_description %}Trung tâm tiếng Trung Bắc Ninh: lớp HSK sĩ số nhỏ, luyện thi theo lộ trình, học thử và test đầu vào miễn phí tại Tân Hoàng Huynh HSK.{% endblock %}
+{% block title %}Trung tâm tiếng Trung Tân Hoàng Huynh HSK Bắc Ninh{% endblock %}
+{% block meta_description %}Trung tâm tiếng Trung tại Bắc Ninh: lớp HSK sĩ số nhỏ, luyện thi theo lộ trình, học thử và kiểm tra đầu vào miễn phí tại Tân Hoàng Huynh HSK.{% endblock %}
 {% block content %}
 <section class="home-hero">
     <div class="hero-pattern" aria-hidden="true">汉 学 中 语</div>
@@ -10,7 +10,7 @@
             <div class="col-lg-7">
                 <p class="hero-kicker">TRUNG TÂM TIẾNG TRUNG TẠI BẮC NINH</p>
                 <h1>{% if banner %}{{ banner.title }}{% else %}Vững tiếng Trung,<br><span>rộng đường tương lai</span>{% endif %}</h1>
-                <p class="hero-copy">{% if banner %}{{ banner.subtitle }}{% else %}Học đúng lộ trình, chắc nền tảng và tự tin chinh phục HSK cùng đội ngũ giáo viên theo sát từng học viên.{% endif %}</p>
+                <p class="hero-copy">{% if banner %}{{ banner.subtitle }}{% else %}Học đúng lộ trình, nắm chắc nền tảng và tự tin chinh phục HSK cùng đội ngũ giáo viên theo sát từng học viên.{% endif %}</p>
                 <div class="d-flex flex-wrap gap-3">
                     {% if banner %}
                     <a class="btn btn-light btn-lg" href="{{ banner.button_url }}">{{ banner.button_text }}</a>
@@ -32,7 +32,7 @@
             </div>
             <div class="col-lg-5">
                 <div class="hero-card">
-                    <div class="hero-card-sticker">Test miễn phí</div>
+                    <div class="hero-card-sticker">Kiểm tra miễn phí</div>
                     {% if banner.image %}<img class="hero-card-media" src="{{ banner.image.url }}" alt="{{ banner.title }}">{% endif %}
                     <div class="hero-card-top">
                         <span>目标</span>
@@ -41,8 +41,8 @@
                     <div class="mock-score">
                         <span>HSK</span><strong>4</strong>
                     </div>
-                    <p>Từ mất gốc đến giao tiếp và chứng chỉ — bắt đầu bằng một bài test đúng trình độ.</p>
-                    <a href="{% url 'admissions:trial' %}">Test đầu vào miễn phí →</a>
+                    <p>Từ mất gốc đến giao tiếp và chứng chỉ - bắt đầu bằng một bài kiểm tra đúng trình độ.</p>
+                    <a href="{% url 'admissions:trial' %}">Kiểm tra đầu vào miễn phí →</a>
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@
         <div class="row g-3 text-center">
             <div class="col-6 col-lg-3"><strong>Phát âm chuẩn</strong><span>Sửa khẩu hình từng buổi</span></div>
             <div class="col-6 col-lg-3"><strong>Lộ trình cá nhân</strong><span>Theo mục tiêu HSK</span></div>
-            <div class="col-6 col-lg-3"><strong>Học đi đôi với dùng</strong><span>Giao tiếp thực tế</span></div>
+            <div class="col-6 col-lg-3"><strong>Học đi đôi với thực hành</strong><span>Giao tiếp thực tế</span></div>
             <div class="col-6 col-lg-3"><strong>Theo sát tiến độ</strong><span>Báo cáo định kỳ</span></div>
         </div>
     </div>
@@ -89,7 +89,7 @@
             <span>Bám sát mục tiêu HSK</span>
         </div>
         <div class="roadmap">
-            <div class="road-step"><b>01</b><span>测</span><h3>Test đầu vào</h3><p>Kiểm tra nghe, đọc, phát âm và mục tiêu.</p></div>
+            <div class="road-step"><b>01</b><span>测</span><h3>Kiểm tra đầu vào</h3><p>Kiểm tra nghe, đọc, phát âm và mục tiêu.</p></div>
             <div class="road-step"><b>02</b><span>班</span><h3>Xếp lớp phù hợp</h3><p>Đúng trình độ, khung giờ và nhịp học.</p></div>
             <div class="road-step"><b>03</b><span>学</span><h3>Học theo lộ trình</h3><p>Chắc từ vựng, ngữ pháp và giao tiếp.</p></div>
             <div class="road-step"><b>04</b><span>练</span><h3>Luyện đề</h3><p>Chiến thuật làm bài và chữa lỗi cá nhân.</p></div>
@@ -167,7 +167,7 @@
         <div class="consultation-panel">
             <div>
                 <p class="eyebrow text-warning">BẠN CHƯA BIẾT BẮT ĐẦU TỪ ĐÂU?</p>
-                <h2>Nhận lộ trình học phù hợp trong 15 phút</h2>
+                <h2>Nhận lộ trình học phù hợp sau 15 phút tư vấn</h2>
                 <p>Để lại thông tin, tư vấn viên sẽ giúp bạn chọn cấp độ, lịch học và mục tiêu HSK phù hợp — hoàn toàn miễn phí.</p>
                 <ul><li>Đánh giá nhanh trình độ hiện tại</li><li>Gợi ý lớp đúng lịch cá nhân</li><li>Minh bạch học phí và thời lượng</li></ul>
             </div>

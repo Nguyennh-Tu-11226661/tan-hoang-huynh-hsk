@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Trung tâm Tiếng Trung Tân Hoàng Huynh HSK{% endblock %}</title>
+    <title>{% block title %}Trung tâm tiếng Trung Tân Hoàng Huynh HSK{% endblock %}</title>
     <meta name="description" content="{% block meta_description %}Học tiếng Trung và luyện thi HSK tại Bắc Ninh với lộ trình cá nhân hóa, lớp sĩ số nhỏ và giáo viên theo sát.{% endblock %}">
     <meta name="robots" content="index, follow">
     <meta property="og:locale" content="vi_VN">
@@ -19,7 +19,7 @@
     {
         "@context": "https://schema.org",
         "@type": ["EducationalOrganization", "LocalBusiness"],
-        "name": "Trung tâm Tiếng Trung Tân Hoàng Huynh HSK",
+        "name": "Trung tâm tiếng Trung Tân Hoàng Huynh HSK",
         "alternateName": ["Tân Hoàng Huynh", "Tan Hoang Huynh HSK"],
         "url": "{{ site_url }}",
         "logo": "{{ site_url }}{% static 'img/official-logo-mark.png' %}",
@@ -91,7 +91,7 @@
                 <div class="col-6 col-lg-2">
                     <h2 class="footer-title">Đăng ký</h2>
                     <a href="{% url 'admissions:consultation' %}">Tư vấn lộ trình</a>
-                    <a href="{% url 'admissions:trial' %}">Học thử / test</a>
+                    <a href="{% url 'admissions:trial' %}">Học thử / kiểm tra đầu vào</a>
                     {% if site_contact.facebook_url %}<a href="{{ site_contact.facebook_url }}" target="_blank" rel="noopener">Facebook</a>{% endif %}
                     {% if site_contact.zalo_url %}<a href="{{ site_contact.zalo_url }}" target="_blank" rel="noopener">Zalo</a>{% endif %}
                     {% if site_contact.messenger_url %}<a href="{{ site_contact.messenger_url }}" target="_blank" rel="noopener">Messenger</a>{% endif %}

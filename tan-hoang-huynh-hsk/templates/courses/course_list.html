@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Các khóa học tiếng Trung và luyện thi HSK Bắc Ninh{% endblock %}
-{% block meta_description %}Khóa tiếng Trung YCT, giáo trình 123, HSK 1–6, giao tiếp doanh nghiệp và luyện thi HSK tại Bắc Ninh.{% endblock %}
+{% block meta_description %}Các khóa tiếng Trung YCT, giáo trình 123, HSK 1–6, giao tiếp doanh nghiệp và luyện thi HSK tại Bắc Ninh.{% endblock %}
 {% block content %}
 {% include "includes/page_header.html" with breadcrumb="Khóa học" eyebrow="CHỌN ĐÚNG ĐIỂM BẮT ĐẦU" heading="Lộ trình tiếng Trung cho từng mục tiêu" intro="Từ người mới bắt đầu đến luyện thi HSK, mỗi chương trình đều có đầu ra, thời lượng và cách đánh giá rõ ràng." %}
 <section class="section-space"><div class="container">
@@ -8,8 +8,8 @@
         <button class="active" data-filter="all">Tất cả</button><button data-filter="yct">YCT trẻ em</button><button data-filter="hsk">Luyện thi HSK</button><button data-filter="giao-tiep">Giao tiếp</button><button data-filter="nguoi-moi">Người mới</button>
     </div>
     <div class="row g-4" id="courseGrid">
-        {% for course in courses %}<div class="col-md-6 col-xl-4 course-item" data-search="{{ course.title|lower }} {{ course.level|lower }} {{ course.short_description|lower }}">{% include "includes/course_card.html" %}</div>{% empty %}<p>Chưa có khóa học đang tuyển sinh.</p>{% endfor %}
+        {% for course in courses %}<div class="col-md-6 col-xl-4 course-item" data-search="{{ course.title|lower }} {{ course.level|lower }} {{ course.short_description|lower }}">{% include "includes/course_card.html" %}</div>{% empty %}<p>Hiện chưa có khóa học đang tuyển sinh.</p>{% endfor %}
     </div>
 </div></section>
-<section class="cta-band"><div class="container d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-4"><div><p class="eyebrow text-warning">CHƯA CHẮC NÊN HỌC LỚP NÀO?</p><h2>Làm bài test đầu vào và nhận tư vấn miễn phí</h2></div><a class="btn btn-warning btn-lg" href="{% url 'admissions:trial' %}">Đặt lịch test</a></div></section>
+<section class="cta-band"><div class="container d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-4"><div><p class="eyebrow text-warning">CHƯA CHẮC NÊN HỌC LỚP NÀO?</p><h2>Làm bài kiểm tra đầu vào và nhận tư vấn miễn phí</h2></div><a class="btn btn-warning btn-lg" href="{% url 'admissions:trial' %}">Đặt lịch kiểm tra</a></div></section>
 {% endblock %}

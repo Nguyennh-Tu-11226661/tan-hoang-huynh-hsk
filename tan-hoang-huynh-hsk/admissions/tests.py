@@ -117,7 +117,7 @@ class AdmissionFormTests(TestCase):
         self.assertRedirects(response, reverse("admissions:success"))
         self.assertEqual(TrialLessonBooking.objects.count(), 1)
         self.assertEqual(len(mail.outbox), 1)
-        self.assertIn("Đặt lịch học thử/test mới", mail.outbox[0].subject)
+        self.assertIn("Đặt lịch học thử/kiểm tra mới", mail.outbox[0].subject)
 
     def test_rate_limit_blocks_immediate_second_submission(self):
         payload = {

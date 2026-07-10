@@ -52,7 +52,7 @@ class Course(models.Model):
 class ClassSchedule(models.Model):
     class Format(models.TextChoices):
         OFFLINE = "offline", "Học trực tiếp"
-        ONLINE = "online", "Học online"
+        ONLINE = "online", "Học trực tuyến"
         HYBRID = "hybrid", "Linh hoạt"
 
     course = models.ForeignKey(
