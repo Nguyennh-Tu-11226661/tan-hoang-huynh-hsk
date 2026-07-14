@@ -564,6 +564,20 @@ textarea.form-control { min-height: 96px; }
 .article-header h1 { margin: 22px auto; font-size: clamp(2.5rem, 5vw, 4.3rem); }
 .article-excerpt { color: #d9ecf8; font-size: 1.1rem; }
 .article-meta { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px 30px; margin-top: 25px; color: #bdd6e9; font-size: .75rem; }
+.article-featured-media {
+    margin-top: -34px;
+    margin-bottom: 0;
+}
+.article-featured-media img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 7;
+    max-height: 520px;
+    object-fit: cover;
+    object-position: center;
+    border: 8px solid #fff;
+    box-shadow: var(--shadow);
+}
 .article-body { padding-top: 70px; padding-bottom: 80px; }
 .article-body > p { margin-bottom: 25px; color: #31445a; font-family: var(--font-sans); font-size: 1.08rem; line-height: 1.85; }
 .article-body > .lead { color: var(--ink); font-size: 1.35rem; }
