@@ -15,15 +15,26 @@ from courses.models import ClassSchedule, Course
 class Command(BaseCommand):
     help = "Tạo hoặc cập nhật dữ liệu mẫu cho website Tân Hoàng Huynh HSK."
 
-    def attach_demo_image(self, instance, field_name, source_name, upload_name=None):
+    def attach_demo_image(
+        self,
+        instance,
+        field_name,
+        source_name,
+        upload_name=None,
+        source_dir="demo",
+        force=False,
+    ):
         image_field = getattr(instance, field_name)
-        if image_field and image_field.storage.exists(image_field.name):
+        if not force and image_field and image_field.storage.exists(image_field.name):
             return
 
-        source_path = settings.BASE_DIR / "static" / "img" / "demo" / source_name
+        source_path = settings.BASE_DIR / "static" / "img" / source_dir / source_name
         if not source_path.exists():
-            self.stdout.write(self.style.WARNING(f"Không tìm thấy ảnh mẫu: {source_path}"))
+            self.stdout.write(self.style.WARNING(f"Không tìm thấy ảnh: {source_path}"))
             return
+
+        if force and image_field:
+            image_field.delete(save=False)
 
         with source_path.open("rb") as source:
             image_field.save(upload_name or source_name, File(source), save=True)
@@ -88,8 +99,10 @@ class Command(BaseCommand):
         self.attach_demo_image(
             banner,
             "image",
-            "lop-giao-tiep-hsk.jpg",
-            "banner-lop-giao-tiep-hsk.jpg",
+            "lop-hoc-that-01.jpg",
+            "banner-lop-hoc-that-01.jpg",
+            source_dir="center",
+            force=True,
         )
 
         course_data = [
@@ -223,7 +236,7 @@ class Command(BaseCommand):
                 "class_size": "6–10 học viên",
                 "tuition": 8800000,
                 "target_students": "Người đã đạt HSK 3 hoặc tương đương.\nHọc viên cần HSK 4 để xét tốt nghiệp, xin học bổng hoặc ứng tuyển doanh nghiệp Trung Quốc.",
-                "outcomes": "Làm chủ khoảng 2.000 từ vựng theo khung mới\nNắm chiến thuật nghe và đọc giới hạn thời gian\nViết câu đúng trật tự và ngữ pháp\nĐạt mục tiêu 220+ qua các lần thi thử",
+                "outcomes": "Hệ thống hóa khoảng 2.000 từ vựng theo lộ trình HSK Standard Course 4, đối chiếu mục tiêu thi HSK cấp 4 dạng 6 cấp hiện hành\nNắm chiến thuật nghe và đọc giới hạn thời gian\nViết câu đúng trật tự và ngữ pháp\nĐạt mục tiêu 220+ qua các lần thi thử",
                 "syllabus": "Quyển thượng: 22 buổi - 4.400.000đ\nQuyển hạ: 22 buổi - 4.400.000đ\nLuyện từng dạng nghe, đọc và viết\nThi thử, thống kê lỗi và tăng tốc",
                 "is_featured": True,
                 "order": 9,
@@ -231,15 +244,15 @@ class Command(BaseCommand):
             {
                 "title": "Tiếng Trung giao tiếp công xưởng",
                 "level": "Giao tiếp",
-                "short_description": "20 buổi giao tiếp tiếng Trung trong nhà máy và công việc hằng ngày.",
-                "description": "Nội dung thiết kế sát nhu cầu người đi làm tại các khu công nghiệp Bắc Ninh: chào hỏi, nhận việc, báo cáo tiến độ, trao đổi lỗi sản phẩm, xin nghỉ, hỏi lịch làm và giao tiếp với quản lý.",
+                "short_description": "Khóa giao tiếp độc lập 20 buổi cho môi trường nhà máy, văn phòng và phỏng vấn.",
+                "description": "Đây là khóa giao tiếp độc lập, không yêu cầu đi theo lộ trình HSK trước đó. Nội dung thiết kế sát nhu cầu người đi làm tại các khu công nghiệp Bắc Ninh: chào hỏi, nhận việc, báo cáo tiến độ, trao đổi lỗi sản phẩm, xin nghỉ, hỏi lịch làm, nhắn tin công việc và giao tiếp với quản lý.",
                 "duration": "20 buổi",
                 "sessions": 20,
                 "class_size": "8–10 học viên",
                 "tuition": 4200000,
                 "target_students": "Nhân viên văn phòng, kỹ thuật, sản xuất và nhân sự đang làm việc với đồng nghiệp Trung Quốc.\nNgười chuẩn bị phỏng vấn vị trí yêu cầu tiếng Trung.",
-                "outcomes": "Giao tiếp trong nhà máy bằng các mẫu câu thường dùng\nTrao đổi tiến độ, chất lượng và lịch làm việc\nViết tin nhắn công việc ngắn, đúng ngữ cảnh\nPhản xạ tốt trong 20 tình huống công xưởng",
-                "syllabus": "Phát âm và mẫu câu giao tiếp ca kíp\nTừ vựng nhà máy, chất lượng và sản xuất\nBáo cáo lỗi, hỏi việc, xin nghỉ và nhắn tin\nMô phỏng tình huống công xưởng thực tế",
+                "outcomes": "Giao tiếp trong nhà máy và văn phòng bằng các mẫu câu thường dùng\nTrao đổi tiến độ, chất lượng và lịch làm việc\nViết tin nhắn công việc ngắn, đúng ngữ cảnh\nPhản xạ tốt trong 20 tình huống công xưởng và phỏng vấn",
+                "syllabus": "Phát âm và mẫu câu giao tiếp ca kíp\nTừ vựng nhà máy, chất lượng, văn phòng và sản xuất\nBáo cáo lỗi, hỏi việc, xin nghỉ và nhắn tin\nMô phỏng tình huống công xưởng, văn phòng và phỏng vấn",
                 "is_featured": True,
                 "order": 10,
             },
@@ -276,11 +289,11 @@ class Command(BaseCommand):
         ]
         courses = {}
         course_images = [
-            "lop-giao-tiep-hsk.jpg",
-            "thi-thu-hsk.jpg",
-            "luyen-noi-theo-cap.jpg",
-            "vinh-danh-hoc-vien.jpg",
-            "workshop-thu-phap.jpg",
+            "lop-hoc-that-01.jpg",
+            "hoc-vien-nhi-giang-sinh.jpg",
+            "lop-hoc-man-hinh-thong-minh.jpg",
+            "lop-giao-tiep-thuc-te.jpg",
+            "mat-tien-trung-tam.jpg",
         ]
         for index, data in enumerate(course_data):
             slug = vietnamese_slugify(data["title"])
@@ -292,6 +305,8 @@ class Command(BaseCommand):
                 "image",
                 course_images[index % len(course_images)],
                 f"{slug}.jpg",
+                source_dir="center",
+                force=True,
             )
             courses.setdefault(course.level, course)
 
@@ -341,31 +356,41 @@ class Command(BaseCommand):
 
         gallery_data = [
             (
-                "Lớp giao tiếp HSK",
-                "Thực hành hội thoại theo nhóm nhỏ với giáo viên theo sát",
-                "lop-giao-tiep-hsk.jpg",
+                "Lớp học tại trung tâm",
+                "Không gian học thật với sĩ số nhỏ và giáo viên theo sát",
+                "lop-hoc-that-01.jpg",
             ),
             (
-                "Thi thử HSK định kỳ",
-                "Mô phỏng phòng thi và canh thời gian như kỳ thi thật",
-                "thi-thu-hsk.jpg",
+                "Mặt tiền trung tâm",
+                "Địa điểm học trực tiếp tại Bắc Ninh",
+                "mat-tien-trung-tam.jpg",
             ),
             (
-                "Workshop viết chữ Hán",
-                "Hiểu bộ thủ, thứ tự nét và trải nghiệm thư pháp",
-                "workshop-thu-phap.jpg",
+                "Lớp học với màn hình thông minh",
+                "Bài giảng trực quan, luyện nghe nói ngay tại lớp",
+                "lop-hoc-man-hinh-thong-minh.jpg",
             ),
             (
-                "Luyện nói theo cặp",
-                "Nói liên tục và sửa phát âm ngay trong tình huống",
-                "luyen-noi-theo-cap.jpg",
+                "Luyện giao tiếp thực tế",
+                "Học viên thực hành theo chủ đề đời sống và công việc",
+                "lop-giao-tiep-thuc-te.jpg",
             ),
             (
-                "Vinh danh học viên",
-                "Ghi nhận từng cột mốc trên hành trình chinh phục HSK",
-                "vinh-danh-hoc-vien.jpg",
+                "Hoạt động học viên nhí",
+                "Khoảnh khắc học tập và sinh hoạt tại trung tâm",
+                "hoc-vien-nhi-giang-sinh.jpg",
             ),
         ]
+        old_demo_gallery_titles = [
+            "Lớp giao tiếp HSK",
+            "Thi thử HSK định kỳ",
+            "Workshop viết chữ Hán",
+            "Luyện nói theo cặp",
+            "Vinh danh học viên",
+        ]
+        GalleryImage.objects.filter(title__in=old_demo_gallery_titles).update(
+            is_active=False
+        )
         for order, (title, caption, source_name) in enumerate(gallery_data, 1):
             gallery_item, _ = GalleryImage.objects.update_or_create(
                 title=title,
@@ -383,6 +408,8 @@ class Command(BaseCommand):
                 "image",
                 source_name,
                 f"{vietnamese_slugify(title)}.jpg",
+                source_dir="center",
+                force=True,
             )
 
         faq_data = [
@@ -428,10 +455,10 @@ class Command(BaseCommand):
         ]
         now = timezone.now()
         blog_images = [
-            "lop-giao-tiep-hsk.jpg",
-            "luyen-noi-theo-cap.jpg",
-            "workshop-thu-phap.jpg",
-            "thi-thu-hsk.jpg",
+            "lop-hoc-that-01.jpg",
+            "lop-giao-tiep-thuc-te.jpg",
+            "lop-hoc-man-hinh-thong-minh.jpg",
+            "mat-tien-trung-tam.jpg",
         ]
         for index, (title, excerpt, body, meta) in enumerate(posts):
             post, _ = BlogPost.objects.update_or_create(
@@ -451,6 +478,8 @@ class Command(BaseCommand):
                 "featured_image",
                 blog_images[index % len(blog_images)],
                 f"{post.slug}.jpg",
+                source_dir="center",
+                force=True,
             )
 
         self.stdout.write(self.style.SUCCESS("Đã tạo/cập nhật dữ liệu mẫu thành công."))

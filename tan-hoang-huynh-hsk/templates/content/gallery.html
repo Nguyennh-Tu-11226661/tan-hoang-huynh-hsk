@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Thư viện lớp học tiếng Trung Tân Hoàng Huynh HSK{% endblock %}
-{% block meta_description %}Hình ảnh lớp học, hoạt động luyện nói, thi thử HSK và workshop tiếng Trung tại Tân Hoàng Huynh Bắc Ninh.{% endblock %}
+{% block meta_description %}Hình ảnh thật lớp học, mặt tiền trung tâm và hoạt động tiếng Trung tại Tân Hoàng Huynh HSK Bắc Ninh.{% endblock %}
 {% block content %}
-{% include "includes/page_header.html" with breadcrumb="Thư viện" eyebrow="NHỊP SỐNG TÂN HOÀNG HUYNH" heading="Lớp học không chỉ có sách vở" intro="Những buổi luyện nói, chữa đề, sinh hoạt văn hóa và khoảnh khắc tiến bộ của học viên." %}
+{% include "includes/page_header.html" with breadcrumb="Thư viện" eyebrow="NHỊP SỐNG TÂN HOÀNG HUYNH" heading="Lớp học không chỉ có sách vở" intro="Hình ảnh thật từ lớp học, không gian trung tâm và khoảnh khắc tiến bộ của học viên." %}
 <section class="section-space"><div class="container"><div class="gallery-grid">{% for item in gallery_items %}<article class="gallery-item {% cycle 'gallery-tall' '' '' 'gallery-wide' %}"><div class="gallery-art art-{{ forloop.counter }}">{% if item.image %}<img src="{{ item.image.url }}" alt="{{ item.title }}" loading="lazy">{% else %}<span>{% if item.media_type == "video" %}▶{% else %}{{ item.title|slice:":1" }}{% endif %}</span><div class="gallery-pattern">中文 HSK 北宁</div>{% endif %}</div><div class="gallery-caption"><div><h2>{{ item.title }}</h2><p>{{ item.caption }}</p></div>{% if item.event_date %}<time>{{ item.event_date|date:"m/Y" }}</time>{% endif %}</div>{% if item.video_url %}<a class="stretched-link" href="{{ item.video_url }}" target="_blank" rel="noopener" aria-label="Xem {{ item.title }}"></a>{% endif %}</article>{% empty %}<p>Trung tâm đang cập nhật thêm hình ảnh lớp học. Ghé fanpage Facebook để xem hoạt động mới nhất.</p>{% endfor %}</div></div></section>
 {% endblock %}
