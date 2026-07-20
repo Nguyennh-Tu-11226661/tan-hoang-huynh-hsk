@@ -27,7 +27,9 @@ services:
       - key: MEDIA_STORAGE
         value: "local"
       - key: ADMIN_2FA_REQUIRED
-        value: "False"
+        sync: false
+      - key: ADMISSION_DATA_RETENTION_DAYS
+        value: "365"
 
 databases:
   - name: tan-hoang-huynh-hsk-db

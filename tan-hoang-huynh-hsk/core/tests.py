@@ -1,6 +1,7 @@
 import tempfile
 from unittest.mock import patch
 
+from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.core.management.base import CommandError
@@ -8,7 +9,10 @@ from django.contrib.staticfiles import finders
 from django.test import TestCase
 from django.urls import reverse
 from django.views.static import serve
+from django_otp import DEVICE_ID_SESSION_KEY
+from django_otp.plugins.otp_totp.models import TOTPDevice
 
+from admissions.models import ConsultationRequest
 from content.models import BlogPost, GalleryImage
 from courses.models import Course
 
@@ -141,6 +145,11 @@ class EnsureSuperuserCommandTests(TestCase):
 
 
 class AdminInterfaceTests(TestCase):
+    def test_secure_admin_site_keeps_registered_models(self):
+        self.assertIn(Course, admin.site._registry)
+        self.assertIn(BlogPost, admin.site._registry)
+        self.assertIn(ConsultationRequest, admin.site._registry)
+
     def test_admin_uses_custom_stylesheet(self):
         User = get_user_model()
         User.objects.create_superuser(
@@ -160,6 +169,40 @@ class AdminInterfaceTests(TestCase):
         self.assertContains(response, "Xác thực 2 lớp")
         self.assertContains(response, "Quản lý khóa học và lịch khai giảng")
         self.assertContains(response, "Thêm/sửa/xóa sẽ ảnh hưởng trang Khóa học")
+        self.assertEqual(response["Cache-Control"], "no-store, private")
+        self.assertEqual(
+            response["Permissions-Policy"],
+            "camera=(), geolocation=(), microphone=()",
+        )
 
     def test_custom_admin_stylesheet_exists(self):
         self.assertIsNotNone(finders.find("admin/css/tan-hoang-admin.css"))
+
+    def test_admin_requires_verified_otp_when_enabled(self):
+        User = get_user_model()
+        user = User.objects.create_superuser(
+            username="secure-admin",
+            email="secure-admin@example.com",
+            password="StrongPassword123!",
+        )
+        device = TOTPDevice.objects.create(
+            user=user,
+            name="test-device",
+            confirmed=True,
+        )
+        self.client.force_login(user)
+
+        with self.settings(ADMIN_2FA_REQUIRED=True):
+            unverified_response = self.client.get(reverse("admin:index"))
+            self.assertRedirects(
+                unverified_response,
+                f'{reverse("admin:login")}?next={reverse("admin:index")}',
+            )
+
+            session = self.client.session
+            session[DEVICE_ID_SESSION_KEY] = device.persistent_id
+            session.save()
+            verified_response = self.client.get(reverse("admin:index"))
+
+        self.assertEqual(verified_response.status_code, 200)
+        self.assertContains(verified_response, "Quản lý khóa học và lịch khai giảng")

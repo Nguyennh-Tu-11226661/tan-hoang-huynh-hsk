@@ -55,7 +55,7 @@ if RENDER_EXTERNAL_HOSTNAME:
 SITE_URL = os.getenv("SITE_URL", "https://tanhoanghuynhhsk.com").rstrip("/")
 
 INSTALLED_APPS = [
-    "django.contrib.admin",
+    "config.admin_apps.SecureAdminConfig",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -73,6 +73,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "config.middleware.SecurityHeadersMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -145,6 +146,13 @@ AXES_COOLOFF_TIME = timedelta(
 AXES_LOCKOUT_PARAMETERS = ["username", "ip_address"]
 AXES_RESET_ON_SUCCESS = True
 ADMIN_2FA_REQUIRED = env_bool("ADMIN_2FA_REQUIRED", False)
+ADMISSION_DATA_RETENTION_DAYS = int(
+    os.getenv("ADMISSION_DATA_RETENTION_DAYS", "365")
+)
+if ADMISSION_DATA_RETENTION_DAYS < 30:
+    raise ImproperlyConfigured(
+        "ADMISSION_DATA_RETENTION_DAYS phải từ 30 ngày trở lên."
+    )
 
 LANGUAGE_CODE = "vi"
 TIME_ZONE = "Asia/Ho_Chi_Minh"
@@ -203,10 +211,17 @@ SECURE_SSL_REDIRECT = env_bool("SECURE_SSL_REDIRECT", False)
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SESSION_COOKIE_SECURE = not DEBUG
 CSRF_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = "Lax"
+CSRF_COOKIE_SAMESITE = "Lax"
+SESSION_COOKIE_AGE = 8 * 60 * 60
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SECURE_HSTS_SECONDS = 31536000 if not DEBUG else 0
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
 SECURE_HSTS_PRELOAD = not DEBUG
 SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
+SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin"
 X_FRAME_OPTIONS = "DENY"
 
 EMAIL_BACKEND = os.getenv(

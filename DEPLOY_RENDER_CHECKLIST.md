@@ -22,6 +22,8 @@
   ```powershell
   cd tan-hoang-huynh-hsk
   .\.venv\Scripts\python.exe manage.py check
+  .\.venv\Scripts\python.exe manage.py check --deploy
+  .\.venv\Scripts\python.exe manage.py test
   ```
 
 ## 2. Day source len GitHub
@@ -125,3 +127,9 @@
 - Render free instance co the ngu sau mot thoi gian khong truy cap, lan dau mo lai se cham.
 - File upload trong `media/` tren Render free khong phu hop de luu anh lau dai. Neu website dung anh hoc vien that, nen dung Cloudinary/S3 hoac goi co persistent disk.
 - Sau moi lan sua code, commit va push len GitHub, Render se tu deploy lai.
+- Dat `ADMIN_2FA_REQUIRED=False` trong lan deploy dau, tao va kiem tra thiet bi
+  TOTP cho admin, sau do doi thanh `True` va redeploy.
+- Chay `python manage.py purge_admission_data --dry-run` truoc, sau do chay
+  `python manage.py purge_admission_data --confirm` dinh ky hang thang.
+- File CSV/Excel xuat tu trang quan tri co du lieu ca nhan; khong gui qua kenh
+  cong khai va xoa khi khong con can.

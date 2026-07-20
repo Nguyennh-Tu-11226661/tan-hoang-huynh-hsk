@@ -5,6 +5,8 @@ from unittest.mock import patch
 
 from django.core import signing
 from django.core import mail
+from django.core.management import call_command
+from django.core.management.base import CommandError
 from django.test import RequestFactory, TestCase
 from django.test import override_settings
 from django.urls import reverse
@@ -137,6 +139,14 @@ class AdmissionFormTests(TestCase):
         self.assertContains(response, "Vui lòng chờ một phút")
         self.assertEqual(ConsultationRequest.objects.count(), 1)
 
+    def test_sensitive_form_pages_are_not_cached(self):
+        response = self.client.get(reverse("admissions:consultation"))
+        self.assertEqual(response["Cache-Control"], "no-store, private")
+        self.assertEqual(
+            response["Permissions-Policy"],
+            "camera=(), geolocation=(), microphone=()",
+        )
+
     @override_settings(
         DEFAULT_FROM_EMAIL="website@example.com",
         ADMISSION_NOTIFICATION_EMAILS=["tuvan@example.com"],
@@ -181,6 +191,7 @@ class ConsultationExportTests(TestCase):
         self.assertIn("Nguyễn Minh An", text)
         self.assertIn("Số điện thoại", text)
         self.assertIn("dang-ky-tu-van.csv", response["Content-Disposition"])
+        self.assertEqual(response["Cache-Control"], "no-store, private")
 
     def test_excel_export(self):
         response = export_consultations_excel(None, self.request, self.queryset)
@@ -191,6 +202,7 @@ class ConsultationExportTests(TestCase):
         self.assertEqual(sheet["A2"].value, "Nguyễn Minh An")
         self.assertEqual(sheet["B2"].value, "0988668596")
         self.assertIn("dang-ky-tu-van.xlsx", response["Content-Disposition"])
+        self.assertEqual(response["Cache-Control"], "no-store, private")
 
     def test_exports_escape_spreadsheet_formulas(self):
         ConsultationRequest.objects.create(
@@ -212,3 +224,45 @@ class ConsultationExportTests(TestCase):
         sheet = workbook["Đăng ký tư vấn"]
         exported_names = [sheet[f"A{row}"].value for row in range(2, 4)]
         self.assertIn("'=HYPERLINK(\"https://example.com\")", exported_names)
+
+
+class PurgeAdmissionDataCommandTests(TestCase):
+    def setUp(self):
+        old_time = timezone.now() - timedelta(days=400)
+        self.closed = ConsultationRequest.objects.create(
+            full_name="Lead đã đóng",
+            phone="0988668596",
+            status=ConsultationRequest.Status.CLOSED,
+        )
+        self.active = ConsultationRequest.objects.create(
+            full_name="Lead đang xử lý",
+            phone="0988668597",
+            status=ConsultationRequest.Status.CONTACTED,
+        )
+        self.booking = TrialLessonBooking.objects.create(
+            full_name="Lịch đã hủy",
+            phone="0988668598",
+            booking_type=TrialLessonBooking.BookingType.TRIAL,
+            preferred_date=timezone.localdate(),
+            preferred_slot="18:00–20:00",
+            status=TrialLessonBooking.Status.CANCELLED,
+        )
+        ConsultationRequest.objects.filter(pk__in=[self.closed.pk, self.active.pk]).update(
+            created_at=old_time
+        )
+        TrialLessonBooking.objects.filter(pk=self.booking.pk).update(created_at=old_time)
+
+    def test_dry_run_does_not_delete_records(self):
+        call_command("purge_admission_data", "--dry-run", verbosity=0)
+        self.assertEqual(ConsultationRequest.objects.count(), 2)
+        self.assertEqual(TrialLessonBooking.objects.count(), 1)
+
+    def test_confirm_deletes_only_old_terminal_records(self):
+        call_command("purge_admission_data", "--confirm", verbosity=0)
+        self.assertFalse(ConsultationRequest.objects.filter(pk=self.closed.pk).exists())
+        self.assertTrue(ConsultationRequest.objects.filter(pk=self.active.pk).exists())
+        self.assertFalse(TrialLessonBooking.objects.filter(pk=self.booking.pk).exists())
+
+    def test_delete_requires_explicit_confirmation(self):
+        with self.assertRaises(CommandError):
+            call_command("purge_admission_data", verbosity=0)

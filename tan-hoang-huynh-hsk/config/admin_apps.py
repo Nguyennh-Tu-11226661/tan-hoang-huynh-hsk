@@ -1,6 +1,11 @@
 from axes.apps import AppConfig as AxesConfig
 from django.apps import apps
+from django.contrib.admin.apps import AdminConfig
 from django_otp.plugins.otp_totp.apps import DefaultConfig as OTP_TOTPConfig
+
+
+class SecureAdminConfig(AdminConfig):
+    default_site = "config.admin_site.SecureAdminSite"
 
 
 class VietnameseAxesConfig(AxesConfig):

@@ -52,6 +52,7 @@ HEADERS = [
 def export_consultations_csv(modeladmin, request, queryset):
     response = HttpResponse(content_type="text/csv; charset=utf-8")
     response["Content-Disposition"] = 'attachment; filename="dang-ky-tu-van.csv"'
+    response["Cache-Control"] = "no-store, private"
     response.write("\ufeff")
     writer = csv.writer(response)
     writer.writerow(HEADERS)
@@ -80,6 +81,7 @@ def export_consultations_excel(modeladmin, request, queryset):
         content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     )
     response["Content-Disposition"] = 'attachment; filename="dang-ky-tu-van.xlsx"'
+    response["Cache-Control"] = "no-store, private"
     return response
 
 

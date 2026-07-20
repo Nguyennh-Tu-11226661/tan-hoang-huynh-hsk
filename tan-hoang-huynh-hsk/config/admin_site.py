@@ -1,5 +1,7 @@
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.admin import AdminSite
+from django_otp.admin import OTPAdminSite
 
 
 APP_HELP = {
@@ -32,14 +34,16 @@ MODEL_HELP = {
 }
 
 
+class SecureAdminSite(OTPAdminSite):
+    """Use one admin registry while optionally enforcing verified OTP sessions."""
+
+    def has_permission(self, request):
+        if settings.ADMIN_2FA_REQUIRED:
+            return super().has_permission(request)
+        return AdminSite.has_permission(self, request)
+
+
 def configure_admin_site():
-    if not settings.ADMIN_2FA_REQUIRED:
-        patch_admin_help(admin.site)
-        return
-
-    from django_otp.admin import OTPAdminSite
-
-    admin.site = OTPAdminSite(name="admin")
     patch_admin_help(admin.site)
 
 

@@ -139,6 +139,25 @@ Tại `/quan-tri/`, quản trị viên có thể quản lý:
 
 Để xuất danh sách tư vấn, vào **Đăng ký tư vấn**, chọn các dòng, sau đó chọn thao tác **Xuất đăng ký đã chọn ra CSV** hoặc **Excel**.
 
+File xuất chứa dữ liệu cá nhân và được trả về với chỉ thị không lưu cache. Chỉ
+lưu file ở thiết bị được quản lý, chia sẻ đúng người có nhiệm vụ và xóa sau khi
+hoàn thành mục đích sử dụng.
+
+## Thời hạn lưu dữ liệu tuyển sinh
+
+Mặc định, chính sách đặt thời hạn `365` ngày cho yêu cầu tư vấn đã đóng và lịch
+học thử đã hoàn thành hoặc hủy. Có thể cấu hình bằng `ADMISSION_DATA_RETENTION_DAYS`
+(tối thiểu 30 ngày). Chạy thử trước khi xóa:
+
+```bash
+python manage.py purge_admission_data --dry-run
+python manage.py purge_admission_data --confirm
+```
+
+Lệnh không xóa lead đang xử lý và bắt buộc `--confirm` khi xóa thật. Nên chạy
+định kỳ hàng tháng bằng Render Cron Job hoặc lịch vận hành tương đương, đồng
+thời áp dụng cùng thời hạn cho bản sao lưu và file CSV/Excel đã xuất.
+
 ## Ảnh mẫu và thông tin vận hành
 
 Dữ liệu mẫu có năm ảnh minh họa lớp học được tạo bằng AI dành riêng cho bản
@@ -186,6 +205,7 @@ rõ rủi ro và cần nạp lại dữ liệu chủ động.
 
 ```powershell
 python manage.py check
+python manage.py check --deploy
 python manage.py test
 python manage.py collectstatic --noinput
 ```

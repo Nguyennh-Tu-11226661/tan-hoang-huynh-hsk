@@ -4,7 +4,7 @@ from core.models import phone_validator
 from courses.models import Course
 
 
-PRIVACY_CONSENT_VERSION = "privacy-2026-07-10"
+PRIVACY_CONSENT_VERSION = "privacy-2026-07-20"
 CONSULTATION_CONSENT_TEXT = (
     "Tôi đồng ý để Trung tâm tiếng Trung Tân Hoàng Huynh HSK thu thập và sử dụng "
     "thông tin đã cung cấp để liên hệ tư vấn lộ trình học."

@@ -1,5 +1,5 @@
 Django==5.2.16
-Pillow==11.3.0
+Pillow==12.3.0
 psycopg[binary]>=3.2.10,<3.4
 openpyxl==3.1.5
 gunicorn==23.0.0
