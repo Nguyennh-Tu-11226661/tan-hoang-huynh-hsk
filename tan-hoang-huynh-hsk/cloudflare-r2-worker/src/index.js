@@ -24,22 +24,25 @@ function objectKey(request) {
 }
 
 function authorized(request, env) {
+  if (!env.MEDIA_UPLOAD_KEY) return false;
+
   const authorization = request.headers.get("Authorization") || "";
   const bearerToken = authorization.startsWith("Bearer ")
     ? authorization.slice("Bearer ".length)
     : "";
+  const cookieToken = (request.headers.get("Cookie") || "")
+    .split(";")
+    .map((item) => item.trim())
+    .find((item) => item.startsWith("media_upload_key="))
+    ?.slice("media_upload_key=".length);
   return constantTimeEqual(
-    bearerToken || request.headers.get("X-Media-Upload-Key"),
+    bearerToken || request.headers.get("X-Media-Upload-Key") || cookieToken,
     env.MEDIA_UPLOAD_KEY,
   );
 }
 
 export default {
   async fetch(request, env) {
-    if (!authorized(request, env)) {
-      return new Response("Forbidden", { status: 403 });
-    }
-
     const key = objectKey(request);
     if (!key) {
       return new Response("Invalid object key", { status: 400 });
@@ -55,6 +58,10 @@ export default {
       });
       object.writeHttpMetadata(headers);
       return new Response(null, { status: 200, headers });
+    }
+
+    if (!authorized(request, env)) {
+      return new Response("Forbidden", { status: 403 });
     }
 
     if (request.method === "PUT") {

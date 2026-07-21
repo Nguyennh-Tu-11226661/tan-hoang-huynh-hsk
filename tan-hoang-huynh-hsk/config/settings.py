@@ -176,6 +176,16 @@ STORAGES = {
 MEDIA_STORAGE = os.getenv("MEDIA_STORAGE", "local").lower()
 MEDIA_URL = "/media/"
 MEDIA_ROOT = Path(os.getenv("MEDIA_ROOT", BASE_DIR / "media"))
+MEDIA_IMAGE_ALLOWED_FORMATS = {"JPEG", "PNG", "WEBP", "GIF", "BMP", "TIFF"}
+MEDIA_IMAGE_MAX_SOURCE_BYTES = int(
+    os.getenv("MEDIA_IMAGE_MAX_SOURCE_BYTES", str(15 * 1024 * 1024))
+)
+MEDIA_IMAGE_MAX_PIXELS = int(os.getenv("MEDIA_IMAGE_MAX_PIXELS", "40000000"))
+MEDIA_IMAGE_MAX_DIMENSION = int(os.getenv("MEDIA_IMAGE_MAX_DIMENSION", "2400"))
+MEDIA_IMAGE_WEBP_QUALITY = int(os.getenv("MEDIA_IMAGE_WEBP_QUALITY", "86"))
+MEDIA_IMAGE_MAX_STORED_BYTES = int(
+    os.getenv("MEDIA_IMAGE_MAX_STORED_BYTES", str(4 * 1024 * 1024))
+)
 if MEDIA_STORAGE not in {"local", "s3", "r2", "r2_worker"}:
     raise ImproperlyConfigured(
         "MEDIA_STORAGE chỉ hỗ trợ local, s3, r2 hoặc r2_worker."
@@ -239,7 +249,7 @@ elif MEDIA_STORAGE == "r2_worker":
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 FILE_UPLOAD_PERMISSIONS = 0o644
-DATA_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
+DATA_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024
 
 LOGGING = {
     "version": 1,

@@ -7,6 +7,8 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.files.base import ContentFile
 from django.core.files.storage import Storage
 
+from config.image_pipeline import optimize_web_image
+
 
 class R2WorkerStorage(Storage):
     """Store media through an authenticated Cloudflare Worker R2 binding."""
@@ -78,6 +80,17 @@ class R2WorkerStorage(Storage):
     def _save(self, name, content):
         payload = b"".join(content.chunks())
         content_type = getattr(content, "content_type", None) or "application/octet-stream"
+        if content_type.startswith("image/") or posixpath.splitext(name)[1].lower() in {
+            ".bmp",
+            ".gif",
+            ".jpg",
+            ".jpeg",
+            ".png",
+            ".tif",
+            ".tiff",
+            ".webp",
+        }:
+            name, payload, content_type = optimize_web_image(name, payload)
         with self._request(
             "PUT", name, data=payload, content_type=content_type
         ) as response:
@@ -96,7 +109,12 @@ class R2WorkerStorage(Storage):
 
     def exists(self, name):
         try:
-            with self._request("HEAD", name) as response:
+            request = Request(
+                self.url(name),
+                headers={"User-Agent": "tan-hoang-huynh-hsk-media/1.0"},
+                method="HEAD",
+            )
+            with urlopen(request, timeout=self.timeout) as response:
                 return response.status == 200
         except HTTPError as exc:
             if exc.code == 404:
@@ -104,7 +122,12 @@ class R2WorkerStorage(Storage):
             raise
 
     def size(self, name):
-        with self._request("HEAD", name) as response:
+        request = Request(
+            self.url(name),
+            headers={"User-Agent": "tan-hoang-huynh-hsk-media/1.0"},
+            method="HEAD",
+        )
+        with urlopen(request, timeout=self.timeout) as response:
             value = response.headers.get("Content-Length")
         if value is None:
             raise OSError("Dịch vụ lưu ảnh không trả về kích thước tệp.")

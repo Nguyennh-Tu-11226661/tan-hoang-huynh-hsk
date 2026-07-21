@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from config.image_pipeline import validate_web_image
 from core.utils import vietnamese_slugify
 
 
@@ -18,7 +19,12 @@ class Course(models.Model):
         "Kết quả đầu ra", help_text="Mỗi kết quả một dòng."
     )
     syllabus = models.TextField("Lộ trình học", help_text="Mỗi chặng một dòng.")
-    image = models.ImageField("Ảnh khóa học", upload_to="courses/", blank=True)
+    image = models.ImageField(
+        "Ảnh khóa học",
+        upload_to="courses/",
+        blank=True,
+        validators=[validate_web_image],
+    )
     is_featured = models.BooleanField("Nổi bật", default=False)
     is_active = models.BooleanField("Đang tuyển sinh", default=True)
     order = models.PositiveSmallIntegerField("Thứ tự", default=0)

@@ -1,5 +1,6 @@
 from django.core.validators import RegexValidator
 from django.db import models
+from config.image_pipeline import validate_web_image
 
 
 phone_validator = RegexValidator(
@@ -11,7 +12,12 @@ phone_validator = RegexValidator(
 class Banner(models.Model):
     title = models.CharField("Tiêu đề", max_length=180)
     subtitle = models.TextField("Mô tả ngắn")
-    image = models.ImageField("Ảnh banner", upload_to="banners/", blank=True)
+    image = models.ImageField(
+        "Ảnh banner",
+        upload_to="banners/",
+        blank=True,
+        validators=[validate_web_image],
+    )
     button_text = models.CharField("Nhãn nút", max_length=50, default="Đăng ký học thử")
     button_url = models.CharField("Đường dẫn nút", max_length=255, default="/dat-lich-hoc-thu/")
     order = models.PositiveSmallIntegerField("Thứ tự", default=0)

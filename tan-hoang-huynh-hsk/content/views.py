@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.views.generic import DetailView, ListView
 
 from .models import BlogPost, GalleryImage, Testimonial
@@ -45,4 +46,8 @@ class GalleryListView(ListView):
     context_object_name = "gallery_items"
 
     def get_queryset(self):
-        return GalleryImage.objects.filter(is_active=True)
+        usable_image = Q(media_type=GalleryImage.MediaType.IMAGE) & ~Q(image="")
+        usable_video = Q(media_type=GalleryImage.MediaType.VIDEO) & ~Q(video_url="")
+        return GalleryImage.objects.filter(is_active=True).filter(
+            usable_image | usable_video
+        )

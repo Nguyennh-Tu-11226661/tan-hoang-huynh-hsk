@@ -1,8 +1,10 @@
+from io import BytesIO
 from unittest import TestCase
 from unittest.mock import Mock, patch
 from urllib.error import HTTPError
 
 from django.core.files.base import ContentFile
+from PIL import Image
 from config.storage import R2WorkerStorage
 
 
@@ -22,19 +24,29 @@ class R2WorkerStorageTests(TestCase):
         response.__exit__ = Mock(return_value=False)
         mocked_urlopen.return_value = response
 
-        saved_name = self.storage.save("blog/anh co dau cach.jpg", ContentFile(b"img"))
+        source = BytesIO()
+        Image.new("RGB", (120, 80), "navy").save(source, format="JPEG")
+        content = ContentFile(source.getvalue(), name="anh co dau cach.jpg")
+        content.content_type = "image/jpeg"
 
-        self.assertEqual(saved_name, "blog/anh co dau cach.jpg")
+        saved_name = self.storage.save("blog/anh co dau cach.jpg", content)
+
+        self.assertRegex(
+            saved_name,
+            r"^blog/anh co dau cach-[0-9a-f]{12}\.webp$",
+        )
         request = mocked_urlopen.call_args.args[0]
         self.assertEqual(request.get_method(), "PUT")
-        self.assertEqual(
+        self.assertRegex(
             request.full_url,
-            "https://media-upload.example.workers.dev/media/blog/anh%20co%20dau%20cach.jpg",
+            r"^https://media-upload\.example\.workers\.dev/media/blog/"
+            r"anh%20co%20dau%20cach-[0-9a-f]{12}\.webp$",
         )
         self.assertEqual(request.get_header("Authorization"), "Bearer test-secret")
         self.assertEqual(
             request.get_header("User-agent"), "tan-hoang-huynh-hsk-media/1.0"
         )
+        self.assertEqual(request.get_header("Content-type"), "image/webp")
 
     @patch("config.storage.urlopen")
     def test_exists_returns_false_for_missing_object(self, mocked_urlopen):

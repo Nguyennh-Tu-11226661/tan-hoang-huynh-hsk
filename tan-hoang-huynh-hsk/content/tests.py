@@ -22,9 +22,14 @@ class PublicContentTests(TestCase):
             content="Giáo viên chữa bài rất kỹ.",
             is_active=True,
         )
-        GalleryImage.objects.create(
+        cls.blank_gallery_item = GalleryImage.objects.create(
             title="Lớp luyện nói",
             caption="Học viên luyện phản xạ theo cặp.",
+            is_active=True,
+        )
+        cls.gallery_item = GalleryImage.objects.create(
+            title="Lớp học hợp lệ",
+            image="gallery/lop-hoc-hop-le.webp",
             is_active=True,
         )
 
@@ -46,3 +51,9 @@ class PublicContentTests(TestCase):
         self.post.status = BlogPost.Status.DRAFT
         self.post.save()
         self.assertEqual(self.client.get(self.post.get_absolute_url()).status_code, 404)
+
+    def test_gallery_hides_active_items_without_usable_media(self):
+        response = self.client.get(reverse("content:gallery"))
+
+        self.assertNotContains(response, self.blank_gallery_item.title)
+        self.assertContains(response, self.gallery_item.title)

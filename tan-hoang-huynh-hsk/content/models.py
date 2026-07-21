@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from config.image_pipeline import validate_web_image
 from core.utils import vietnamese_slugify
 
 
@@ -12,7 +13,12 @@ class BlogPost(models.Model):
     slug = models.SlugField("Đường dẫn", max_length=240, unique=True, blank=True)
     excerpt = models.CharField("Mô tả ngắn", max_length=320)
     content = models.TextField("Nội dung")
-    featured_image = models.ImageField("Ảnh đại diện", upload_to="blog/", blank=True)
+    featured_image = models.ImageField(
+        "Ảnh đại diện",
+        upload_to="blog/",
+        blank=True,
+        validators=[validate_web_image],
+    )
     author_name = models.CharField("Tác giả", max_length=100, default="Ban học thuật")
     status = models.CharField(
         "Trạng thái", max_length=20, choices=Status.choices, default=Status.DRAFT
@@ -48,7 +54,12 @@ class Testimonial(models.Model):
     course_name = models.CharField("Khóa học / kết quả", max_length=180)
     content = models.TextField("Chia sẻ")
     score = models.CharField("Điểm HSK", max_length=80, blank=True)
-    avatar = models.ImageField("Ảnh học viên", upload_to="testimonials/", blank=True)
+    avatar = models.ImageField(
+        "Ảnh học viên",
+        upload_to="testimonials/",
+        blank=True,
+        validators=[validate_web_image],
+    )
     rating = models.PositiveSmallIntegerField("Đánh giá", default=5)
     is_featured = models.BooleanField("Nổi bật", default=False)
     is_active = models.BooleanField("Đang hiển thị", default=True)
@@ -69,7 +80,12 @@ class GalleryImage(models.Model):
         VIDEO = "video", "Video"
 
     title = models.CharField("Tiêu đề", max_length=180)
-    image = models.ImageField("Hình ảnh", upload_to="gallery/", blank=True)
+    image = models.ImageField(
+        "Hình ảnh",
+        upload_to="gallery/",
+        blank=True,
+        validators=[validate_web_image],
+    )
     media_type = models.CharField(
         "Loại nội dung", max_length=10, choices=MediaType.choices, default=MediaType.IMAGE
     )
