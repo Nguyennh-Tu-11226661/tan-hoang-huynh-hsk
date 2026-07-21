@@ -47,7 +47,7 @@ class R2WorkerStorage(Storage):
         return f"{self.endpoint_url}/{quote(self._object_name(name), safe='/')}"
 
     def _request(self, method, name, *, data=None, content_type=None):
-        headers = {"X-Media-Upload-Key": self.auth_key}
+        headers = {"Authorization": f"Bearer {self.auth_key}"}
         if content_type:
             headers["Content-Type"] = content_type
         request = Request(

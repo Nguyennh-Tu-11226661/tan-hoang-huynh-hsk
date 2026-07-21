@@ -31,7 +31,7 @@ class R2WorkerStorageTests(TestCase):
             request.full_url,
             "https://media-upload.example.workers.dev/media/blog/anh%20co%20dau%20cach.jpg",
         )
-        self.assertEqual(request.get_header("X-media-upload-key"), "test-secret")
+        self.assertEqual(request.get_header("Authorization"), "Bearer test-secret")
 
     @patch("config.storage.urlopen")
     def test_exists_returns_false_for_missing_object(self, mocked_urlopen):

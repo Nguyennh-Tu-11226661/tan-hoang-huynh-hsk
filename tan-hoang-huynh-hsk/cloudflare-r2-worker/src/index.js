@@ -24,8 +24,12 @@ function objectKey(request) {
 }
 
 function authorized(request, env) {
+  const authorization = request.headers.get("Authorization") || "";
+  const bearerToken = authorization.startsWith("Bearer ")
+    ? authorization.slice("Bearer ".length)
+    : "";
   return constantTimeEqual(
-    request.headers.get("X-Media-Upload-Key"),
+    bearerToken || request.headers.get("X-Media-Upload-Key"),
     env.MEDIA_UPLOAD_KEY,
   );
 }
