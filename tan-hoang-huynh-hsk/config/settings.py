@@ -3,6 +3,7 @@ from datetime import timedelta
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
+from botocore.config import Config
 from django.core.exceptions import ImproperlyConfigured
 
 
@@ -199,6 +200,13 @@ if MEDIA_STORAGE in {"s3", "r2"}:
     AWS_QUERYSTRING_AUTH = env_bool("AWS_QUERYSTRING_AUTH", False)
     AWS_S3_FILE_OVERWRITE = False
     AWS_S3_SIGNATURE_VERSION = os.getenv("AWS_S3_SIGNATURE_VERSION", "s3v4")
+    AWS_S3_ADDRESSING_STYLE = os.getenv("AWS_S3_ADDRESSING_STYLE", "path")
+    AWS_S3_CLIENT_CONFIG = Config(
+        signature_version=AWS_S3_SIGNATURE_VERSION,
+        s3={"addressing_style": AWS_S3_ADDRESSING_STYLE},
+        request_checksum_calculation="when_required",
+        response_checksum_validation="when_required",
+    )
     STORAGES["default"] = {"BACKEND": "storages.backends.s3.S3Storage"}
     if AWS_S3_CUSTOM_DOMAIN:
         MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN.rstrip('/')}/{AWS_LOCATION}/"
@@ -206,6 +214,19 @@ if MEDIA_STORAGE in {"s3", "r2"}:
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 FILE_UPLOAD_PERMISSIONS = 0o644
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {"console": {"class": "logging.StreamHandler"}},
+    "loggers": {
+        "django.request": {
+            "handlers": ["console"],
+            "level": "ERROR",
+            "propagate": False,
+        }
+    },
+}
 
 SECURE_SSL_REDIRECT = env_bool("SECURE_SSL_REDIRECT", False)
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
