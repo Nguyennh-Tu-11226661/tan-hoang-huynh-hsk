@@ -176,8 +176,10 @@ STORAGES = {
 MEDIA_STORAGE = os.getenv("MEDIA_STORAGE", "local").lower()
 MEDIA_URL = "/media/"
 MEDIA_ROOT = Path(os.getenv("MEDIA_ROOT", BASE_DIR / "media"))
-if MEDIA_STORAGE not in {"local", "s3", "r2"}:
-    raise ImproperlyConfigured("MEDIA_STORAGE chỉ hỗ trợ local, s3 hoặc r2.")
+if MEDIA_STORAGE not in {"local", "s3", "r2", "r2_worker"}:
+    raise ImproperlyConfigured(
+        "MEDIA_STORAGE chỉ hỗ trợ local, s3, r2 hoặc r2_worker."
+    )
 if MEDIA_STORAGE in {"s3", "r2"}:
     required_media_vars = [
         "AWS_STORAGE_BUCKET_NAME",
@@ -210,6 +212,30 @@ if MEDIA_STORAGE in {"s3", "r2"}:
     STORAGES["default"] = {"BACKEND": "storages.backends.s3.S3Storage"}
     if AWS_S3_CUSTOM_DOMAIN:
         MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN.rstrip('/')}/{AWS_LOCATION}/"
+elif MEDIA_STORAGE == "r2_worker":
+    r2_worker_vars = [
+        "R2_WORKER_UPLOAD_URL",
+        "R2_WORKER_AUTH_KEY",
+        "R2_PUBLIC_BASE_URL",
+    ]
+    missing_worker_vars = [name for name in r2_worker_vars if not os.getenv(name)]
+    if missing_worker_vars:
+        raise ImproperlyConfigured(
+            "Thiếu biến môi trường lưu media qua Worker: "
+            + ", ".join(missing_worker_vars)
+        )
+    AWS_LOCATION = os.getenv("AWS_LOCATION", "media")
+    R2_PUBLIC_BASE_URL = os.getenv("R2_PUBLIC_BASE_URL", "").rstrip("/")
+    STORAGES["default"] = {
+        "BACKEND": "config.storage.R2WorkerStorage",
+        "OPTIONS": {
+            "endpoint_url": os.getenv("R2_WORKER_UPLOAD_URL"),
+            "auth_key": os.getenv("R2_WORKER_AUTH_KEY"),
+            "public_base_url": R2_PUBLIC_BASE_URL,
+            "location": AWS_LOCATION,
+        },
+    }
+    MEDIA_URL = f"{R2_PUBLIC_BASE_URL}/{AWS_LOCATION}/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 FILE_UPLOAD_PERMISSIONS = 0o644

@@ -191,6 +191,15 @@ và ảnh vẫn lưu trong `media/`. Để chuyển sang AWS S3 hoặc Cloudflar
 - `AWS_S3_CUSTOM_DOMAIN` nếu có domain public/CDN cho bucket
 - `AWS_LOCATION=media`
 
+Nếu endpoint S3 của R2 chưa được Cloudflare cấp TLS, có thể dùng Worker có R2
+binding trong thư mục `cloudflare-r2-worker`:
+
+- `MEDIA_STORAGE=r2_worker`
+- `R2_WORKER_UPLOAD_URL` là URL `workers.dev` của Worker
+- `R2_WORKER_AUTH_KEY` là secret dùng chung giữa Render và Worker
+- `R2_PUBLIC_BASE_URL` là URL công khai của bucket (`r2.dev` hoặc custom domain)
+- `AWS_LOCATION=media`
+
 Sau khi chuyển media ra R2/S3, ảnh upload qua admin sẽ còn sau deploy/restart.
 Nếu đang dùng Cloudinary thay vì R2/S3, cần thay backend storage và biến môi
 trường theo tài khoản Cloudinary riêng.

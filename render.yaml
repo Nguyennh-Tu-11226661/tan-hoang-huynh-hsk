@@ -25,7 +25,15 @@ services:
       - key: SITE_URL
         value: "https://tanhoanghuynhhsk.com"
       - key: MEDIA_STORAGE
-        value: "local"
+        value: "r2_worker"
+      - key: R2_WORKER_UPLOAD_URL
+        value: "https://tan-hoang-huynh-media-upload.nguyenanhtu1113.workers.dev"
+      - key: R2_WORKER_AUTH_KEY
+        sync: false
+      - key: R2_PUBLIC_BASE_URL
+        value: "https://pub-4b5875c37809410abf61733bb3fc4217.r2.dev"
+      - key: AWS_LOCATION
+        value: "media"
       - key: ADMIN_2FA_REQUIRED
         sync: false
       - key: ADMISSION_DATA_RETENTION_DAYS

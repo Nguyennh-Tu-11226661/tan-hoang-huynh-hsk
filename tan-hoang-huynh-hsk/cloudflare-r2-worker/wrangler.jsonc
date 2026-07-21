@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tan-hoang-huynh-media-upload",
+  "main": "src/index.js",
+  "compatibility_date": "2026-07-21",
+  "r2_buckets": [
+    {
+      "binding": "MEDIA_BUCKET",
+      "bucket_name": "tan-hoang-huynh-media"
+    }
+  ]
+}
